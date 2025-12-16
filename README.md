@@ -1,122 +1,117 @@
-# 🎨 Tesco SmartCreative Studio
+# SmartCreative Studio
 
-> AI-Powered Creative Production & Optimization for Retail Media
-
-Built for the **Tesco Retail Media InnovAItion Jam 2025**
-
-![Demo](https://img.shields.io/badge/Demo-Live-brightgreen) ![HTML](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white) ![CSS](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+**A hackathon project for the Tesco Retail Media InnovAItion Jam 2025**
 
 ---
 
-## 🚀 What is SmartCreative Studio?
+## What's This About?
 
-SmartCreative Studio is a generative AI-driven platform that helps retailers and brand teams create stunning, brand-compliant ads in minutes – no design degree required.
+We built SmartCreative Studio because creating retail ads shouldn't require a design team or expensive software. Whether you're a small shop owner promoting this week's deals or a brand manager launching a national campaign, you deserve tools that just work.
 
-### Two Engines, One Goal
-
-| Layer 1: AI Creative Builder | Layer 2: Dynamic Optimizer |
-|------------------------------|---------------------------|
-| Upload assets & generate variants | Context-aware ad rotation |
-| Auto background removal | Weather, footfall, POS triggers |
-| One-click multi-format export | Live performance dashboard |
-| Built-in brand compliance | Real-time metric updates |
+Drop in your product photos, tell us what vibe you're going for, and our prototype shows how AI could handle the rest – from generating creative options to checking brand guidelines automatically.
 
 ---
 
-## ✨ Key Features
+## The Big Idea
 
-- **🎨 AI-Powered Generation** – Describe what you want, get polished creative options
-- **📐 Auto Multi-Format** – Export for Instagram, Facebook, Tesco App, In-Store displays
-- **✅ Brand Compliance** – Automatic checks for logo, colors, tone, safe zones
-- **⚡ Dynamic Optimization** – Ads adapt based on real-world context
-- **📊 Live Dashboard** – Watch metrics update in real-time
+We split the problem into two parts:
 
----
+**Part 1: Make Creation Easy**  
+A visual studio where you upload assets, describe what you want, and get polished ad variations. No Photoshop skills needed.
 
-## 🛠️ Tech Stack
-
-| Category | Technologies |
-|----------|-------------|
-| Frontend | React/Next.js, TailwindCSS |
-| Backend | Node.js, Python (FastAPI) |
-| AI/ML | Stable Diffusion XL, ControlNet, OpenCV |
-| Data | Faker.js (synthetic), ONNX Runtime |
-| Dashboard | WebSockets, D3.js, Chart.js |
+**Part 2: Make Optimization Automatic**  
+Once ads are live, they adapt on their own – sunshine means show fresh fruits, lunch rush means highlight meal deals. The system watches and adjusts.
 
 ---
 
-## 📁 Project Structure
+## What You'll Find Here
+
+This prototype demonstrates:
+
+- **Canvas Editor** – Drag, drop, and arrange elements visually
+- **AI Generation** – Simulated text-to-design workflow
+- **Multi-Format Export** – Instagram, Facebook, in-store displays from one design
+- **Brand Compliance** – Automated checks before export
+- **Live Dashboard** – Real-time performance metrics that update as you watch
+- **Context Triggers** – Weather, store traffic, time of day influencing creative selection
+
+---
+
+## How We Built It
+
+Just three files, pure web technologies:
 
 ```
-Tesco/
-├── index.html     # Main application
-├── styles.css     # Design system & components
-└── app.js         # Interactive functionality
+├── index.html   → Structure and content
+├── styles.css   → Visual design system
+└── app.js       → Interactive functionality
 ```
 
----
-
-## 🚀 Quick Start
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/AyushRanjan-2026/Tesco_Prototype_Phase.git
-   ```
-
-2. Open `index.html` in your browser:
-   ```bash
-   open index.html
-   ```
-
-3. Explore the features:
-   - Try the AI Creative Builder canvas
-   - Watch the live dashboard metrics update
-   - Export ads in multiple formats
+No frameworks, no build tools, no dependencies. Open `index.html` in any browser and you're good to go.
 
 ---
 
-## 🎯 Prototype Highlights
+## Try It Yourself
 
-### Hero Section
-- "Create Once, Run Everywhere" messaging
-- Two-layer architecture visualization
+```bash
+git clone https://github.com/AyushRanjan-2026/Tesco_Prototype_Phase.git
+cd Tesco_Prototype_Phase
+open index.html
+```
 
-### Creative Studio
-- Drag-and-drop canvas
-- AI generation simulation
-- Quick themes & style presets
-
-### Dynamic Dashboard
-- Live-updating metrics (Views, Engagement, ROI)
-- Context triggers (Weather, Footfall, Time)
-- Creative performance charts
-
-### Documentation
-- Architecture diagram
-- Integration flow
-- Challenges & roadmap
+Then:
+1. Scroll through to see all the sections
+2. Click "Jump Into the Studio" to try the canvas
+3. Hit "Generate Options" to see the AI simulation
+4. Check out the dashboard with live-updating metrics
 
 ---
 
-## 🔮 Future Roadmap
+## What's Inside
 
-- [ ] Autonomous reinforcement learning optimization
-- [ ] Multimodal LLM guideline ingestion
-- [ ] Advanced image editing (inpainting, relighting)
-- [ ] Video & audio asset generation
-- [ ] Direct Tesco API integration
-- [ ] Team collaboration features
-
----
-
-## 👨‍💻 Authors
-
-**Ayush Ranjan** & **Sachin Verma**
-
-Built with ☕ and AI for the Tesco Retail Media InnovAItion Jam 2025
+| Section | What It Shows |
+|---------|---------------|
+| Hero | Our value proposition and the two-layer architecture |
+| Features | Detailed breakdown of creative and optimization tools |
+| Architecture | How the system components would connect |
+| Canvas | Interactive design workspace |
+| Compliance | Automated brand guideline checks |
+| Dashboard | Live performance tracking simulation |
+| Challenges | Real technical hurdles we'd face building this for real |
+| Future | Where we'd take this next |
 
 ---
 
-## 📄 License
+## Tech We'd Use (For Real Implementation)
 
-This project is for hackathon demonstration purposes.
+| Layer | Technologies |
+|-------|-------------|
+| Frontend | React, Next.js, TailwindCSS |
+| Backend | Node.js APIs, Python for AI services |
+| AI Models | Stable Diffusion, ControlNet, OpenCV |
+| Real-time | WebSockets for live updates |
+| Visualization | D3.js, Chart.js for dashboards |
+
+---
+
+## What's Next?
+
+If we had more time, we'd love to explore:
+
+- Reinforcement learning for truly autonomous optimization
+- PDF parsing to automatically extract brand guidelines
+- Video and audio asset generation
+- Direct integration with Tesco's real data feeds
+- Collaborative editing for agency teams
+
+---
+
+## Who Made This
+
+**Ayush Ranjan** and **Sachin Verma**
+
+We're excited about the intersection of AI and retail media. This prototype is our way of showing what's possible when you combine generative AI with smart optimization.
+
+---
+
+*Built for the Tesco Retail Media InnovAItion Jam 2025* 🛒✨
