@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesco SmartCreative Studio - Your AI Partner for Retail Ads</title>
+    <meta name="description"
+        content="Build stunning, brand-compliant retail ads in minutes. Our AI handles the heavy lifting while you stay creative.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-gradient"></div>
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="10" fill="url(#logo-gradient)" />
+                        <path d="M12 20L18 26L28 14" stroke="white" stroke-width="3" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <defs>
+                            <linearGradient id="logo-gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop stop-color="#EE1C2E" />
+                                <stop offset="1" stop-color="#00539F" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">Smart<span class="highlight">Creative</span></span>
+            </div>
+            <nav class="nav">
+                <a href="#features" class="nav-link">What We Offer</a>
+                <a href="#builder" class="nav-link">Creative Studio</a>
+                <a href="#architecture" class="nav-link">How It Works</a>
+                <a href="#dashboard" class="nav-link">Live Insights</a>
+            </nav>
+            <div class="header-actions">
+                <button class="btn btn-ghost">Sign In</button>
+                <button class="btn btn-primary">Try It Free</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">
+                <span class="badge-icon">✨</span>
+                Built for the Tesco InnovAItion Jam
+            </div>
+            <h1 class="hero-title">
+                Create Once,<br>
+                <span class="gradient-text">Run Everywhere</span>
+            </h1>
+            <p class="hero-subtitle">
+                We built SmartCreative Studio because small retailers and brand teams deserve
+                agency-level creative tools. No design degree needed – just describe what you want,
+                and our AI brings it to life.
+            </p>
+            <div class="two-layers">
+                <div class="layer-card">
+                    <div class="layer-icon">🎨</div>
+                    <h3>The Creative Engine</h3>
+                    <p>Drop in your product photos, pick a vibe, and watch AI generate polished ad variants
+                        automatically</p>
+                </div>
+                <div class="layer-card">
+                    <div class="layer-icon">⚡</div>
+                    <h3>The Smart Optimizer</h3>
+                    <p>Your ads adapt on their own based on weather, store traffic, and what's trending at the till</p>
+                </div>
+            </div>
+            <div class="hero-actions">
+                <button class="btn btn-primary btn-lg" onclick="scrollToBuilder()">
+                    <span>Jump Into the Studio</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </button>
+                <button class="btn btn-outline btn-lg" onclick="scrollToArchitecture()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 16v-4M12 8h.01" />
+                    </svg>
+                    <span>See How It Works</span>
+                </button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value">&lt;500KB</span>
+                    <span class="stat-label">Export Size</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-value">100%</span>
+                    <span class="stat-label">On-Brand</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-value">Live</span>
+                    <span class="stat-label">Optimization</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="canvas-preview">
+                <div class="preview-header">
+                    <div class="preview-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <span class="preview-title">Your Creative Workspace</span>
+                </div>
+                <div class="preview-content">
+                    <div class="sample-ad">
+                        <div class="ad-product"></div>
+                        <div class="ad-text">
+                            <div class="ad-headline">Fresh & Local</div>
+                            <div class="ad-subtext">Available at Tesco</div>
+                        </div>
+                        <div class="ad-badge tesco-badge">
+                            <svg width="60" height="20" viewBox="0 0 60 20">
+                                <rect width="60" height="20" rx="3" fill="#00539F" />
+                                <text x="30" y="14" text-anchor="middle" fill="white" font-size="10"
+                                    font-weight="600">TESCO</text>
+                            </svg>
+                        </div>
+                        <div class="clubcard-badge">
+                            <span>Clubcard Price</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="floating-elements">
+                <div class="float-card float-1">
+                    <div class="float-icon">🎯</div>
+                    <span>Smart Resize</span>
+                </div>
+                <div class="float-card float-2">
+                    <div class="float-icon">✓</div>
+                    <span>Brand Safe</span>
+                </div>
+                <div class="float-card float-3">
+                    <div class="float-icon">📊</div>
+                    <span>Real Insights</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="section-header">
+            <span class="section-badge">What You Get</span>
+            <h2 class="section-title">Two Engines, <span class="gradient-text">One Goal</span></h2>
+            <p class="section-subtitle">We split the problem in two: first, make creation effortless; then, make
+                optimization automatic</p>
+        </div>
+
+        <!-- AI Creative Builder Features -->
+        <div class="feature-category">
+            <h3 class="category-title"><span class="category-icon">🎨</span> The Creative Studio</h3>
+            <p class="category-desc">This is where the magic happens. Upload your assets, tell us what you need, and let
+                AI handle the grunt work.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                            <polyline points="17,8 12,3 7,8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                    </div>
+                    <h4>Bring Your Own Assets</h4>
+                    <p>Toss in your product shots, brand logos, and color codes – we'll keep everything organized and
+                        accessible</p>
+                </div>
+                <div class="feature-card featured">
+                    <div class="feature-badge">AI Magic</div>
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                            <path d="M2 17l10 5 10-5" />
+                            <path d="M2 12l10 5 10-5" />
+                        </svg>
+                    </div>
+                    <h4>Instant Variant Generation</h4>
+                    <p>Describe your vision in plain English, and our diffusion models whip up multiple creative options
+                        in seconds</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <path d="M21 15l-5-5L5 21" />
+                        </svg>
+                    </div>
+                    <h4>Auto Background Cleanup</h4>
+                    <p>Our vision models strip out messy backgrounds, reposition elements, and polish your images for
+                        you</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" />
+                            <path d="M8 21h8" />
+                            <path d="M12 17v4" />
+                        </svg>
+                    </div>
+                    <h4>One Click, Every Format</h4>
+                    <p>Hit export and get perfectly sized versions for Instagram, Facebook, the Tesco app, and in-store
+                        displays</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4" />
+                            <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h4>Built-in Brand Guardrails</h4>
+                    <p>Every design gets checked against Tesco's guidelines – logo placement, color accuracy, tone of
+                        voice, the works</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                            <polyline points="7,10 12,15 17,10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                    </div>
+                    <h4>Lean, Fast Exports</h4>
+                    <p>We squeeze every KB out of your files without sacrificing quality – always under 500KB, always
+                        crisp</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Ad Optimizer Features -->
+        <div class="feature-category">
+            <h3 class="category-title"><span class="category-icon">⚡</span> The Smart Optimizer</h3>
+            <p class="category-desc">Once your ads are live, this engine takes over – swapping creatives based on what's
+                actually happening in the real world.</p>
+            <div class="features-grid features-grid-2">
+                <div class="feature-card large">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12,6 12,12 16,14" />
+                        </svg>
+                    </div>
+                    <h4>Context-Aware Rotation</h4>
+                    <p>Is it raining outside? Show warm drinks. Lunchtime rush? Highlight meal deals. Friday evening?
+                        Bring out the weekend specials. Your ads react to the moment.</p>
+                </div>
+                <div class="feature-card large">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 20V10" />
+                            <path d="M12 20V4" />
+                            <path d="M6 20v-6" />
+                        </svg>
+                    </div>
+                    <h4>Live Performance Tracking</h4>
+                    <p>Watch your metrics update in real-time – impressions, engagement rates, simulated ROI. See which
+                        creatives are winning and why.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovation Section -->
+    <section class="innovation-section">
+        <div class="section-header">
+            <span class="section-badge">Why We're Different</span>
+            <h2 class="section-title">This Isn't Just <span class="gradient-text">Another Ad Tool</span></h2>
+        </div>
+        <div class="innovation-grid">
+            <div class="innovation-card">
+                <div class="innovation-icon">🚀</div>
+                <h4>Build Once, Use Everywhere</h4>
+                <p>Stop recreating the same ad in 12 different sizes – our AI handles format adaptation automatically
+                </p>
+            </div>
+            <div class="innovation-card">
+                <div class="innovation-icon">🔒</div>
+                <h4>Creativity + Compliance</h4>
+                <p>We blend generative AI with rule-based checks so you get creative freedom without brand risk</p>
+            </div>
+            <div class="innovation-card">
+                <div class="innovation-icon">🔄</div>
+                <h4>Ads That Learn</h4>
+                <p>Your campaigns improve over time as our engine learns what works for your audience</p>
+            </div>
+            <div class="innovation-card">
+                <div class="innovation-icon">🔬</div>
+                <h4>No Sensitive Data Needed</h4>
+                <p>We use synthetic retail signals for testing – you get realistic demos without touching real customer
+                    info</p>
+            </div>
+            <div class="innovation-card">
+                <div class="innovation-icon">💼</div>
+                <h4>Made for Real People</h4>
+                <p>Whether you run a corner shop or manage a national brand, our tools work the same – no agency
+                    required</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="architecture-section">
+        <div class="section-header">
+            <span class="section-badge">Under the Hood</span>
+            <h2 class="section-title">How It All <span class="gradient-text">Fits Together</span></h2>
+            <p class="section-subtitle">A peek at the system architecture that makes SmartCreative Studio tick</p>
+        </div>
+
+        <div class="architecture-grid">
+            <div class="arch-card">
+                <div class="arch-icon">📤</div>
+                <h4>Asset Input Layer</h4>
+                <p>Users drop in their logos, product packshots, and brand specs through a visual uploader. Everything
+                    gets tagged and stored for quick access.</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-icon">🖼️</div>
+                <h4>Creative Processing Engine</h4>
+                <p>Handles the heavy image work – background removal via computer vision, smart resizing, rotation, and
+                    color normalization.</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-icon">🤖</div>
+                <h4>Generative AI Module</h4>
+                <p>Stable Diffusion models combined with ControlNet to produce layout variations and creative options
+                    based on text prompts and uploaded assets.</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-icon">✅</div>
+                <h4>Compliance Validation Layer</h4>
+                <p>Rule-based checks plus computer vision verify logo zones, color accuracy, safe areas, and text
+                    density before anything goes out.</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-icon">🎨</div>
+                <h4>Canvas & Assembly Layer</h4>
+                <p>A Fabric.js-powered editor lets users drag, drop, layer, and fine-tune their compositions with full
+                    visual control.</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-icon">📦</div>
+                <h4>Export & Optimization Module</h4>
+                <p>Compresses and formats final creatives as optimized JPEG or PNG files, each under 500KB, ready for
+                    any platform.</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-icon">⚡</div>
+                <h4>Dynamic Optimization Engine</h4>
+                <p>Consumes synthetic (or real) data streams – footfall patterns, weather conditions, POS trends – to
+                    select and rotate the best-performing creative.</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-icon">📊</div>
+                <h4>Real-Time Dashboard Layer</h4>
+                <p>Displays creative performance, rotation logic, context triggers, and engagement metrics via
+                    WebSocket-powered live updates.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Details Section -->
+    <section id="integration" class="integration-section">
+        <div class="section-header">
+            <span class="section-badge">Integration Flow</span>
+            <h2 class="section-title">How Components <span class="gradient-text">Talk to Each Other</span></h2>
+        </div>
+
+        <div class="integration-grid">
+            <div class="integration-card">
+                <h4>🎨 Creative Builder Service</h4>
+                <ul>
+                    <li>Calls AI microservices for background removal and layout generation</li>
+                    <li>Triggers compliance validation automatically before any export</li>
+                    <li>Sends completed creatives to the optimization engine for deployment</li>
+                </ul>
+            </div>
+            <div class="integration-card">
+                <h4>✅ Compliance Engine</h4>
+                <ul>
+                    <li>Exposes validation APIs for safe zones, color checks, and text limits</li>
+                    <li>Pushes real-time alerts back to the editor when issues are detected</li>
+                    <li>Logs all checks for audit trails and future model refinement</li>
+                </ul>
+            </div>
+            <div class="integration-card">
+                <h4>⚡ Dynamic Optimizer</h4>
+                <ul>
+                    <li>Subscribes to synthetic data streams and selects creatives based on context</li>
+                    <li>Sends performance updates to the dashboard via WebSocket</li>
+                    <li>Rotates ads automatically without manual intervention</li>
+                </ul>
+            </div>
+            <div class="integration-card">
+                <h4>🌡️ Synthetic Data Generator</h4>
+                <ul>
+                    <li>Emits weather, footfall, and POS events as JSON payloads</li>
+                    <li>Feeds directly into the optimization engine for testing</li>
+                    <li>Allows realistic demos without accessing sensitive Tesco APIs</li>
+                </ul>
+            </div>
+            <div class="integration-card">
+                <h4>📊 Dashboard Service</h4>
+                <ul>
+                    <li>Listens for real-time creative rotation and performance metrics</li>
+                    <li>Pulls metadata from backend storage for historical views</li>
+                    <li>Renders interactive charts with D3.js and Chart.js</li>
+                </ul>
+            </div>
+            <div class="integration-card">
+                <h4>🔮 Future: Tesco API Gateway</h4>
+                <ul>
+                    <li>Gateway to ingest real POS data and inventory signals once approved</li>
+                    <li>Extends optimization logic with live retail triggers</li>
+                    <li>Enables audience segment targeting based on Clubcard insights</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Creative Builder Section -->
+    <section id="builder" class="canvas-section">
+        <div class="section-header">
+            <span class="section-badge">Try It Out</span>
+            <h2 class="section-title">The <span class="gradient-text">Creative Studio</span></h2>
+            <p class="section-subtitle">Upload something → describe what you want → let AI do the rest → export
+                everywhere</p>
+        </div>
+
+        <div class="canvas-workspace">
+            <!-- Left Sidebar - Tools -->
+            <div class="tools-sidebar">
+                <div class="tool-group">
+                    <h4>Elements</h4>
+                    <div class="tool-items">
+                        <button class="tool-btn active" data-tool="select" title="Select">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
+                            </svg>
+                        </button>
+                        <button class="tool-btn" data-tool="text" title="Add Text">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 7V4h16v3" />
+                                <path d="M9 20h6" />
+                                <path d="M12 4v16" />
+                            </svg>
+                        </button>
+                        <button class="tool-btn" data-tool="image" title="Add Image">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                <path d="M21 15l-5-5L5 21" />
+                            </svg>
+                        </button>
+                        <button class="tool-btn" data-tool="shape" title="Add Shape">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="tool-group">
+                    <h4>Tesco Assets</h4>
+                    <div class="asset-items">
+                        <div class="asset-item" draggable="true" data-asset="tesco-logo">
+                            <div class="asset-preview tesco-blue">TESCO</div>
+                            <span>Logo</span>
+                        </div>
+                        <div class="asset-item" draggable="true" data-asset="clubcard">
+                            <div class="asset-preview clubcard-purple">Clubcard</div>
+                            <span>Clubcard</span>
+                        </div>
+                        <div class="asset-item" draggable="true" data-asset="available-tag">
+                            <div class="asset-preview tesco-red">Available</div>
+                            <span>Tag</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tool-group">
+                    <h4>Quick Actions</h4>
+                    <button class="action-btn" onclick="removeBackground()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 5l14 14M5 19L19 5" />
+                        </svg>
+                        Strip Background
+                    </button>
+                    <button class="action-btn" onclick="autoEnhance()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
+                        </svg>
+                        Auto-Polish
+                    </button>
+                    <button class="action-btn" onclick="generateVariants()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                            <path d="M2 17l10 5 10-5" />
+                        </svg>
+                        More Variations
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Canvas -->
+            <div class="main-canvas">
+                <div class="canvas-toolbar">
+                    <div class="canvas-size-selector">
+                        <select id="canvasSize" onchange="changeCanvasSize(this.value)">
+                            <option value="social">Instagram Square</option>
+                            <option value="facebook">Facebook Banner</option>
+                            <option value="tesco-app">Tesco App</option>
+                            <option value="instore">In-Store Display</option>
+                            <option value="banner">Web Banner</option>
+                        </select>
+                    </div>
+                    <div class="canvas-actions">
+                        <button class="canvas-action" onclick="undo()" title="Undo (Ctrl+Z)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 10h10a5 5 0 015 5v2" />
+                                <path d="M3 10l4 4m-4-4l4-4" />
+                            </svg>
+                        </button>
+                        <button class="canvas-action" onclick="redo()" title="Redo">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10H11a5 5 0 00-5 5v2" />
+                                <path d="M21 10l-4 4m4-4l-4-4" />
+                            </svg>
+                        </button>
+                        <div class="zoom-controls">
+                            <button onclick="zoomOut()">−</button>
+                            <span id="zoomLevel">100%</span>
+                            <button onclick="zoomIn()">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="canvas-area" id="canvasArea">
+                    <div class="canvas-container" id="canvasContainer">
+                        <div class="design-canvas" id="designCanvas">
+                            <div class="canvas-element product-image" id="productImage" style="top: 80px; left: 50px;">
+                                <div class="element-content">
+                                    <div class="placeholder-product">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                                            <circle cx="8.5" cy="8.5" r="1.5" />
+                                            <path d="M21 15l-5-5L5 21" />
+                                        </svg>
+                                        <span>Drop Product Here</span>
+                                    </div>
+                                </div>
+                                <div class="resize-handle"></div>
+                            </div>
+                            <div class="canvas-element headline-text" id="headlineText" style="top: 20px; left: 20px;">
+                                <div class="element-content">
+                                    <h2 contenteditable="true">Your Message Here</h2>
+                                </div>
+                            </div>
+                            <div class="canvas-element tesco-tag" id="tescoTag" style="bottom: 20px; right: 20px;">
+                                <div class="element-content">
+                                    <div class="available-tag">Available at Tesco</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar - AI Panel -->
+            <div class="ai-sidebar">
+                <div class="ai-panel">
+                    <div class="panel-header">
+                        <div class="ai-indicator">
+                            <span class="ai-dot"></span>
+                            AI Assistant Ready
+                        </div>
+                    </div>
+                    <div class="ai-input-section">
+                        <label>Tell me what you're looking for</label>
+                        <textarea id="aiPrompt"
+                            placeholder="Try: 'A bright summer promo for fresh berries with Clubcard pricing on a cheerful yellow background'"></textarea>
+                        <button class="btn btn-primary btn-full" onclick="generateWithAI()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
+                                height="18">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                                <path d="M2 17l10 5 10-5" />
+                            </svg>
+                            Generate Options
+                        </button>
+                    </div>
+                    <div class="ai-suggestions">
+                        <h4>Quick Themes</h4>
+                        <div class="suggestion-chips">
+                            <button class="chip" onclick="applySuggestion('summer-sale')">🌞 Sunny</button>
+                            <button class="chip" onclick="applySuggestion('clubcard-deal')">💳 Clubcard</button>
+                            <button class="chip" onclick="applySuggestion('fresh-produce')">🥬 Fresh</button>
+                            <button class="chip" onclick="applySuggestion('holiday-special')">🎄 Festive</button>
+                        </div>
+                    </div>
+                    <div class="style-options">
+                        <h4>Visual Style</h4>
+                        <div class="style-grid">
+                            <button class="style-btn active" onclick="applyStyle('modern')">
+                                <div class="style-preview modern"></div>
+                                <span>Clean</span>
+                            </button>
+                            <button class="style-btn" onclick="applyStyle('vibrant')">
+                                <div class="style-preview vibrant"></div>
+                                <span>Warm</span>
+                            </button>
+                            <button class="style-btn" onclick="applyStyle('minimal')">
+                                <div class="style-preview minimal"></div>
+                                <span>Simple</span>
+                            </button>
+                            <button class="style-btn" onclick="applyStyle('bold')">
+                                <div class="style-preview bold"></div>
+                                <span>Dark</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compliance Section -->
+    <section id="compliance" class="compliance-section">
+        <div class="section-header">
+            <span class="section-badge">Before You Export</span>
+            <h2 class="section-title">Automatic <span class="gradient-text">Brand Checks</span></h2>
+            <p class="section-subtitle">Every design runs through our validation layer – logo position, colors, safe
+                zones, text density, everything</p>
+        </div>
+
+        <div class="compliance-demo">
+            <div class="compliance-card">
+                <div class="compliance-header">
+                    <h3>Validation Report</h3>
+                    <div class="compliance-status passed">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
+                            height="18">
+                            <path d="M9 12l2 2 4-4" />
+                            <circle cx="12" cy="12" r="10" />
+                        </svg>
+                        Looking Good
+                    </div>
+                </div>
+                <div class="compliance-checks">
+                    <div class="check-item passed">
+                        <div class="check-icon">✓</div>
+                        <div class="check-info">
+                            <span class="check-name">Logo Placement</span>
+                            <span class="check-desc">Tesco logo positioned correctly with proper clearance</span>
+                        </div>
+                    </div>
+                    <div class="check-item passed">
+                        <div class="check-icon">✓</div>
+                        <div class="check-info">
+                            <span class="check-name">Color Palette</span>
+                            <span class="check-desc">All colors match the approved Tesco brand guide</span>
+                        </div>
+                    </div>
+                    <div class="check-item passed">
+                        <div class="check-icon">✓</div>
+                        <div class="check-info">
+                            <span class="check-name">Text Limits</span>
+                            <span class="check-desc">Copy length and density within acceptable range</span>
+                        </div>
+                    </div>
+                    <div class="check-item passed">
+                        <div class="check-icon">✓</div>
+                        <div class="check-info">
+                            <span class="check-name">Tone Check</span>
+                            <span class="check-desc">Language aligns with brand voice guidelines</span>
+                        </div>
+                    </div>
+                    <div class="check-item passed">
+                        <div class="check-icon">✓</div>
+                        <div class="check-info">
+                            <span class="check-name">Visual Alignment</span>
+                            <span class="check-desc">Element positioning verified by computer vision</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="compliance-footer">
+                    <div class="file-size">
+                        <span class="size-label">Final Size:</span>
+                        <span class="size-value">248 KB</span>
+                        <span class="size-status good">✓ Under 500KB</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="export-panel">
+                <h3>Ready to Export</h3>
+                <div class="format-options">
+                    <div class="format-option active">
+                        <input type="radio" name="format" id="formatJpeg" checked>
+                        <label for="formatJpeg">
+                            <span class="format-name">JPEG</span>
+                            <span class="format-desc">Best for photos</span>
+                        </label>
+                    </div>
+                    <div class="format-option">
+                        <input type="radio" name="format" id="formatPng">
+                        <label for="formatPng">
+                            <span class="format-name">PNG</span>
+                            <span class="format-desc">Transparent BGs</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="size-options">
+                    <h4>Export All Formats</h4>
+                    <div class="size-grid">
+                        <button class="size-btn active">
+                            <span class="size-name">Instagram</span>
+                            <span class="size-dims">1080×1080</span>
+                        </button>
+                        <button class="size-btn active">
+                            <span class="size-name">Facebook</span>
+                            <span class="size-dims">1200×628</span>
+                        </button>
+                        <button class="size-btn active">
+                            <span class="size-name">Tesco App</span>
+                            <span class="size-dims">750×1334</span>
+                        </button>
+                        <button class="size-btn active">
+                            <span class="size-name">In-Store</span>
+                            <span class="size-dims">1920×1080</span>
+                        </button>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-full btn-lg" onclick="exportAd()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                        <polyline points="7,10 12,15 17,10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download All (4 sizes)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="dashboard-section">
+        <div class="section-header">
+            <span class="section-badge">After Launch</span>
+            <h2 class="section-title">Watch Your Ads <span class="gradient-text">Perform Live</span></h2>
+            <p class="section-subtitle">Once your creatives are out there, this dashboard shows what's working and
+                rotates winners automatically</p>
+        </div>
+
+        <div class="dashboard-container">
+            <div class="dashboard-sidebar">
+                <div class="trigger-panel">
+                    <h4>Active Context Triggers</h4>
+                    <div class="trigger-list">
+                        <div class="trigger-item active">
+                            <div class="trigger-icon">🌤️</div>
+                            <div class="trigger-info">
+                                <span class="trigger-name">Weather</span>
+                                <span class="trigger-value">Sunny, 24°C</span>
+                            </div>
+                            <div class="trigger-status on"></div>
+                        </div>
+                        <div class="trigger-item active">
+                            <div class="trigger-icon">👥</div>
+                            <div class="trigger-info">
+                                <span class="trigger-name">Store Traffic</span>
+                                <span class="trigger-value">High Volume</span>
+                            </div>
+                            <div class="trigger-status on"></div>
+                        </div>
+                        <div class="trigger-item">
+                            <div class="trigger-icon">🕐</div>
+                            <div class="trigger-info">
+                                <span class="trigger-name">Time Period</span>
+                                <span class="trigger-value">Afternoon</span>
+                            </div>
+                            <div class="trigger-status on"></div>
+                        </div>
+                        <div class="trigger-item">
+                            <div class="trigger-icon">📊</div>
+                            <div class="trigger-info">
+                                <span class="trigger-name">Sales Trend</span>
+                                <span class="trigger-value">+15% Organic</span>
+                            </div>
+                            <div class="trigger-status on"></div>
+                        </div>
+                        <div class="trigger-item">
+                            <div class="trigger-icon">👤</div>
+                            <div class="trigger-info">
+                                <span class="trigger-name">Audience</span>
+                                <span class="trigger-value">Families</span>
+                            </div>
+                            <div class="trigger-status on"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-main">
+                <div class="dashboard-header">
+                    <h4>Performance Overview</h4>
+                    <div class="live-indicator">
+                        <span class="live-dot"></span>
+                        Updating Live
+                    </div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="impressionsValue">12,847</div>
+                        <div class="metric-label">Views</div>
+                        <div class="metric-trend up">↑ 23%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="engagementValue">4.2%</div>
+                        <div class="metric-label">Engagement</div>
+                        <div class="metric-trend up">↑ 0.8%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="roiValue">287%</div>
+                        <div class="metric-label">Est. ROI</div>
+                        <div class="metric-trend up">↑ 42%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="rotationsValue">34</div>
+                        <div class="metric-label">Rotations</div>
+                        <div class="metric-trend neutral">Today</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h5>Creative Performance by Variant</h5>
+                        <div class="chart-legend">
+                            <span class="legend-item"><span class="legend-dot variant-a"></span>Summer Promo</span>
+                            <span class="legend-item"><span class="legend-dot variant-b"></span>Clubcard Deal</span>
+                            <span class="legend-item"><span class="legend-dot variant-c"></span>Fresh Picks</span>
+                        </div>
+                    </div>
+                    <div class="chart-area" id="performanceChart">
+                        <svg viewBox="0 0 600 200" class="chart-svg">
+                            <line x1="50" y1="20" x2="50" y2="180" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                            <line x1="50" y1="180" x2="580" y2="180" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                            <line x1="50" y1="100" x2="580" y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="1"
+                                stroke-dasharray="5,5" />
+                            <line x1="50" y1="60" x2="580" y2="60" stroke="rgba(255,255,255,0.05)" stroke-width="1"
+                                stroke-dasharray="5,5" />
+                            <line x1="50" y1="140" x2="580" y2="140" stroke="rgba(255,255,255,0.05)" stroke-width="1"
+                                stroke-dasharray="5,5" />
+
+                            <path d="M50,150 Q150,120 200,100 T350,80 T500,50 T580,40" fill="none" stroke="#10B981"
+                                stroke-width="3" class="chart-line" />
+                            <circle cx="200" cy="100" r="4" fill="#10B981" />
+                            <circle cx="350" cy="80" r="4" fill="#10B981" />
+                            <circle cx="500" cy="50" r="4" fill="#10B981" />
+
+                            <path d="M50,160 Q150,140 200,130 T350,110 T500,90 T580,85" fill="none" stroke="#3B82F6"
+                                stroke-width="3" class="chart-line" />
+                            <circle cx="200" cy="130" r="4" fill="#3B82F6" />
+                            <circle cx="350" cy="110" r="4" fill="#3B82F6" />
+                            <circle cx="500" cy="90" r="4" fill="#3B82F6" />
+
+                            <path d="M50,165 Q150,155 200,145 T350,140 T500,130 T580,125" fill="none" stroke="#8B5CF6"
+                                stroke-width="3" class="chart-line" />
+                            <circle cx="200" cy="145" r="4" fill="#8B5CF6" />
+                            <circle cx="350" cy="140" r="4" fill="#8B5CF6" />
+                            <circle cx="500" cy="130" r="4" fill="#8B5CF6" />
+
+                            <text x="50" y="195" fill="#9CA3AF" font-size="10">9am</text>
+                            <text x="180" y="195" fill="#9CA3AF" font-size="10">12pm</text>
+                            <text x="315" y="195" fill="#9CA3AF" font-size="10">3pm</text>
+                            <text x="450" y="195" fill="#9CA3AF" font-size="10">6pm</text>
+                            <text x="565" y="195" fill="#9CA3AF" font-size="10">9pm</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="creative-rotation">
+                    <h5>Currently Active Creative</h5>
+                    <div class="rotation-cards">
+                        <div class="rotation-card active">
+                            <div class="rotation-preview summer"></div>
+                            <div class="rotation-info">
+                                <span class="rotation-name">Summer Fresh</span>
+                                <span class="rotation-trigger">Sunny weather detected</span>
+                            </div>
+                            <div class="rotation-badge">Live</div>
+                        </div>
+                        <div class="rotation-card">
+                            <div class="rotation-preview morning"></div>
+                            <div class="rotation-info">
+                                <span class="rotation-name">Morning Rush</span>
+                                <span class="rotation-trigger">Activates 7-10am</span>
+                            </div>
+                        </div>
+                        <div class="rotation-card">
+                            <div class="rotation-preview family"></div>
+                            <div class="rotation-info">
+                                <span class="rotation-name">Family Value</span>
+                                <span class="rotation-trigger">Weekend traffic</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section class="challenges-section">
+        <div class="section-header">
+            <span class="section-badge">Real Talk</span>
+            <h2 class="section-title">Challenges <span class="gradient-text">We're Tackling</span></h2>
+        </div>
+        <div class="challenges-grid">
+            <div class="challenge-card">
+                <div class="challenge-icon">⚖️</div>
+                <h4>Creativity vs. Compliance</h4>
+                <p>Finding the sweet spot where AI outputs stay on-brand without feeling cookie-cutter takes careful
+                    tuning and constant iteration.</p>
+            </div>
+            <div class="challenge-card">
+                <div class="challenge-icon">⚡</div>
+                <h4>Speed vs. Cost</h4>
+                <p>Large diffusion models are powerful but expensive. We're working on optimized inference to keep
+                    things snappy without breaking the bank.</p>
+            </div>
+            <div class="challenge-card">
+                <div class="challenge-icon">🖼️</div>
+                <h4>Multi-Format Quality</h4>
+                <p>Scaling one design to a dozen sizes while preserving visual integrity is trickier than it sounds –
+                    especially for complex layouts.</p>
+            </div>
+            <div class="challenge-card">
+                <div class="challenge-icon">🎯</div>
+                <h4>Simplicity for Everyone</h4>
+                <p>Balancing power-user features with a simple interface that someone without design training can pick
+                    up in minutes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Work Section -->
+    <section class="future-section">
+        <div class="section-header">
+            <span class="section-badge">What's Next</span>
+            <h2 class="section-title">Future <span class="gradient-text">Improvements</span></h2>
+        </div>
+        <div class="future-grid">
+            <div class="future-card">
+                <div class="future-icon">🧠</div>
+                <h4>Autonomous Optimization</h4>
+                <p>Reinforcement learning to let the system test and improve creatives on its own, no human nudging
+                    required.</p>
+            </div>
+            <div class="future-card">
+                <div class="future-icon">📄</div>
+                <h4>Smart Guideline Ingestion</h4>
+                <p>Upload brand PDFs and let multimodal LLMs extract and enforce rules automatically.</p>
+            </div>
+            <div class="future-card">
+                <div class="future-icon">✨</div>
+                <h4>Advanced Image Editing</h4>
+                <p>Inpainting, smart retouching, and product relighting to take packshots to the next level.</p>
+            </div>
+            <div class="future-card">
+                <div class="future-icon">🎬</div>
+                <h4>Video & Audio Assets</h4>
+                <p>Extend generation to short video clips and audio assets for digital screens and Tesco Radio.</p>
+            </div>
+            <div class="future-card">
+                <div class="future-icon">🔗</div>
+                <h4>Direct Tesco Integration</h4>
+                <p>Connect to real POS data, inventory feeds, and audience segments once approved by the Tesco team.</p>
+            </div>
+            <div class="future-card">
+                <div class="future-icon">👥</div>
+                <h4>Team Collaboration</h4>
+                <p>Version history, approval workflows, and shared asset libraries for agencies and brand teams.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="tech-section">
+        <div class="section-header">
+            <span class="section-badge">Built With</span>
+            <h2 class="section-title">Our <span class="gradient-text">Tech Stack</span></h2>
+        </div>
+        <div class="tech-grid">
+            <div class="tech-card">
+                <h4>Frontend</h4>
+                <p>React with Next.js, styled using TailwindCSS for rapid iteration</p>
+            </div>
+            <div class="tech-card">
+                <h4>Backend</h4>
+                <p>Node.js for APIs, Python microservices for AI inference via FastAPI</p>
+            </div>
+            <div class="tech-card">
+                <h4>AI & ML</h4>
+                <p>Stable Diffusion XL, ControlNet, OpenCV for image processing</p>
+            </div>
+            <div class="tech-card">
+                <h4>Synthetic Data</h4>
+                <p>Faker.js generates realistic retail signals; optional ONNX Runtime for edge</p>
+            </div>
+            <div class="tech-card">
+                <h4>Dashboard</h4>
+                <p>WebSocket streams power D3.js and Chart.js visualizations</p>
+            </div>
+            <div class="tech-card">
+                <h4>Infra</h4>
+                <p>Cloud-agnostic deployment, blob storage for assets, horizontal scaling</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Build<br><span class="gradient-text">Better Ads?</span></h2>
+            <p>Stop wrestling with design tools and format conversions. Let AI handle the busywork.</p>
+            <button class="btn btn-primary btn-lg" onclick="scrollToBuilder()">
+                Open the Studio
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="10" fill="url(#footer-logo-gradient)" />
+                            <path d="M12 20L18 26L28 14" stroke="white" stroke-width="3" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <defs>
+                                <linearGradient id="footer-logo-gradient" x1="0" y1="0" x2="40" y2="40">
+                                    <stop stop-color="#EE1C2E" />
+                                    <stop offset="1" stop-color="#00539F" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="logo-text">Smart<span class="highlight">Creative</span></span>
+                </div>
+                <p>Built with ☕ and AI for the Tesco Retail Media InnovAItion Jam 2024</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <a href="#builder">Creative Studio</a>
+                    <a href="#dashboard">Live Dashboard</a>
+                    <a href="#architecture">Architecture</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <a href="#">API Docs</a>
+                    <a href="#">Integration Guide</a>
+                    <a href="#">Brand Guidelines</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Tech</h4>
+                    <a href="#">React + Next.js</a>
+                    <a href="#">Stable Diffusion XL</a>
+                    <a href="#">ControlNet + OpenCV</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 SmartCreative Studio. Made for Tesco Retail Media by passionate developers 🚀</p>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <span>AI is working on your creative...</span>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
