@@ -94,9 +94,7 @@ Tesco_Prototype_Phase/
 
 ## Deployed / Live Link
 
-**GitHub Pages:** *(To be deployed)*
-
-For now, run locally by opening `index.html` in any browser.
+**🔗 Live Demo:** [https://tesco-git-main-ayush-ranjans-projects-d284439b.vercel.app](https://tesco-git-main-ayush-ranjans-projects-d284439b.vercel.app)
 
 ---
 
