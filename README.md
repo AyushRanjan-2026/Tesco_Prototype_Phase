@@ -94,7 +94,7 @@ Tesco_Prototype_Phase/
 
 ## Deployed / Live Link
 
-**🔗 Live Demo:** [https://tesco-git-main-ayush-ranjans-projects-d284439b.vercel.app](https://tesco-git-main-ayush-ranjans-projects-d284439b.vercel.app)
+**🔗 Live Demo:** [https://tesco-git-main-ayush-ranjans-projects-d284439b.vercel.app?_vercel_share=6CRensQPSHFIBTAJQSwQzSmahWoBHTUd](https://tesco-git-main-ayush-ranjans-projects-d284439b.vercel.app?_vercel_share=6CRensQPSHFIBTAJQSwQzSmahWoBHTUd)
 
 ---
 
