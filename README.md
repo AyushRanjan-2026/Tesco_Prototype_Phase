@@ -1,117 +1,107 @@
 # SmartCreative Studio
 
-**A hackathon project for the Tesco Retail Media InnovAItion Jam 2025**
+An AI-powered creative production and optimization tool for retail media, built for the Tesco Retail Media InnovAItion Jam 2025.
 
 ---
 
-## What's This About?
+## Setup Steps
 
-We built SmartCreative Studio because creating retail ads shouldn't require a design team or expensive software. Whether you're a small shop owner promoting this week's deals or a brand manager launching a national campaign, you deserve tools that just work.
+### Prerequisites
+- Any modern web browser (Chrome, Firefox, Safari, Edge)
+- No additional software or installations required
 
-Drop in your product photos, tell us what vibe you're going for, and our prototype shows how AI could handle the rest – from generating creative options to checking brand guidelines automatically.
+### Installation
 
----
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/AyushRanjan-2026/Tesco_Prototype_Phase.git
+   ```
 
-## The Big Idea
+2. Navigate to the project folder:
+   ```bash
+   cd Tesco_Prototype_Phase
+   ```
 
-We split the problem into two parts:
-
-**Part 1: Make Creation Easy**  
-A visual studio where you upload assets, describe what you want, and get polished ad variations. No Photoshop skills needed.
-
-**Part 2: Make Optimization Automatic**  
-Once ads are live, they adapt on their own – sunshine means show fresh fruits, lunch rush means highlight meal deals. The system watches and adjusts.
-
----
-
-## What You'll Find Here
-
-This prototype demonstrates:
-
-- **Canvas Editor** – Drag, drop, and arrange elements visually
-- **AI Generation** – Simulated text-to-design workflow
-- **Multi-Format Export** – Instagram, Facebook, in-store displays from one design
-- **Brand Compliance** – Automated checks before export
-- **Live Dashboard** – Real-time performance metrics that update as you watch
-- **Context Triggers** – Weather, store traffic, time of day influencing creative selection
+3. Open the application:
+   ```bash
+   open index.html
+   ```
+   Or simply double-click `index.html` to open in your default browser.
 
 ---
 
-## How We Built It
+## Usage Instructions
 
-Just three files, pure web technologies:
+### Exploring the Prototype
+
+1. **Hero Section** – Scroll down to understand the two-layer architecture (Creative Builder + Dynamic Optimizer)
+
+2. **Creative Studio** – Click "Jump Into the Studio" to access the interactive canvas:
+   - Drag and drop Tesco assets onto the canvas
+   - Enter a description and click "Generate Options" to simulate AI generation
+   - Choose visual styles using the Quick Themes buttons
+   - Select export format and download
+
+3. **Live Dashboard** – Scroll to the Dynamic Optimization Dashboard:
+   - Watch metrics update in real-time (Views, Engagement, ROI)
+   - See how context triggers affect creative rotation
+
+4. **Architecture & Integration** – Review system component diagrams
+
+5. **Export** – Click "Download All" to simulate multi-format export
+
+### Interactive Features
+
+| Feature | How to Use |
+|---------|-----------|
+| Canvas Drag & Drop | Drag elements from sidebar onto canvas |
+| AI Generation | Type description → Click "Generate Options" |
+| Style Presets | Click Clean, Warm, Simple, or Dark buttons |
+| Zoom Controls | Use +/- buttons below canvas |
+| Undo/Redo | Ctrl+Z / Ctrl+Shift+Z |
+| Export | Click "Download All (4 sizes)" |
+
+---
+
+## Dependencies
+
+**None required.**
+
+This is a pure HTML, CSS, and JavaScript prototype with zero external dependencies:
+
+| File | Purpose |
+|------|---------|
+| `index.html` | Application structure and content |
+| `styles.css` | Visual design system and components |
+| `app.js` | Interactive functionality and simulations |
+
+External resources loaded via CDN:
+- Google Fonts (Inter) – for typography only
+
+---
+
+## Project Structure
 
 ```
-├── index.html   → Structure and content
-├── styles.css   → Visual design system
-└── app.js       → Interactive functionality
+Tesco_Prototype_Phase/
+├── index.html    # Main application (35 KB)
+├── styles.css    # Styling (45 KB)
+├── app.js        # JavaScript (23 KB)
+└── README.md     # This file
 ```
 
-No frameworks, no build tools, no dependencies. Open `index.html` in any browser and you're good to go.
+---
+
+## Deployed / Live Link
+
+**GitHub Pages:** *(To be deployed)*
+
+For now, run locally by opening `index.html` in any browser.
 
 ---
 
-## Try It Yourself
+## Authors
 
-```bash
-git clone https://github.com/AyushRanjan-2026/Tesco_Prototype_Phase.git
-cd Tesco_Prototype_Phase
-open index.html
-```
+**Ayush Ranjan** & **Sachin Verma**
 
-Then:
-1. Scroll through to see all the sections
-2. Click "Jump Into the Studio" to try the canvas
-3. Hit "Generate Options" to see the AI simulation
-4. Check out the dashboard with live-updating metrics
-
----
-
-## What's Inside
-
-| Section | What It Shows |
-|---------|---------------|
-| Hero | Our value proposition and the two-layer architecture |
-| Features | Detailed breakdown of creative and optimization tools |
-| Architecture | How the system components would connect |
-| Canvas | Interactive design workspace |
-| Compliance | Automated brand guideline checks |
-| Dashboard | Live performance tracking simulation |
-| Challenges | Real technical hurdles we'd face building this for real |
-| Future | Where we'd take this next |
-
----
-
-## Tech We'd Use (For Real Implementation)
-
-| Layer | Technologies |
-|-------|-------------|
-| Frontend | React, Next.js, TailwindCSS |
-| Backend | Node.js APIs, Python for AI services |
-| AI Models | Stable Diffusion, ControlNet, OpenCV |
-| Real-time | WebSockets for live updates |
-| Visualization | D3.js, Chart.js for dashboards |
-
----
-
-## What's Next?
-
-If we had more time, we'd love to explore:
-
-- Reinforcement learning for truly autonomous optimization
-- PDF parsing to automatically extract brand guidelines
-- Video and audio asset generation
-- Direct integration with Tesco's real data feeds
-- Collaborative editing for agency teams
-
----
-
-## Who Made This
-
-**Ayush Ranjan** and **Sachin Verma**
-
-We're excited about the intersection of AI and retail media. This prototype is our way of showing what's possible when you combine generative AI with smart optimization.
-
----
-
-*Built for the Tesco Retail Media InnovAItion Jam 2025* 🛒✨
+*Built for the Tesco Retail Media InnovAItion Jam 2025*
