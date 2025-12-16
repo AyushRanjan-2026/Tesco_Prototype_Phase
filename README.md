@@ -2,7 +2,7 @@
 
 > AI-Powered Creative Production & Optimization for Retail Media
 
-Built for the **Tesco Retail Media InnovAItion Jam 2024**
+Built for the **Tesco Retail Media InnovAItion Jam 2025**
 
 ![Demo](https://img.shields.io/badge/Demo-Live-brightgreen) ![HTML](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white) ![CSS](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
 
@@ -109,11 +109,11 @@ Tesco/
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Authors
 
-**Ayush Ranjan**
+**Ayush Ranjan** & **Sachin Verma**
 
-Built with ☕ and AI for the Tesco Retail Media InnovAItion Jam 2024
+Built with ☕ and AI for the Tesco Retail Media InnovAItion Jam 2025
 
 ---
 
