@@ -1,377 +1,467 @@
-// SmartCreative Studio - Interactive JavaScript
+// SmartCreative Studio - Application Logic
 
-// State
+// ===== State =====
+let isLoggedIn = false;
+let currentUser = null;
 let canvasElements = [];
-let currentZoom = 100;
 let selectedElement = null;
 let undoStack = [];
 let redoStack = [];
-let currentStyle = 'clean';
-let dashboardInterval = null;
+let currentZoom = 100;
+let currentStyle = 'gradient';
+let dashboardUpdateInterval = null;
 
-// DOM Ready
+// ===== Initialize =====
 document.addEventListener('DOMContentLoaded', () => {
-    initializeApp();
-    initializeDashboard();
-    initializeCanvasDragDrop();
-    animateOnScroll();
+    checkLoginState();
+    initCanvas();
+    initDashboard();
+    initChart();
+    setupKeyboardShortcuts();
 });
 
-// Initialize
-function initializeApp() {
-    // Smooth scroll for navigation
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
+// ===== Auth Functions =====
+function checkLoginState() {
+    const savedUser = localStorage.getItem('smartcreative_user');
+    if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        isLoggedIn = true;
+        updateAuthUI();
+    }
+}
 
-    // Header scroll effect
-    window.addEventListener('scroll', () => {
-        const header = document.querySelector('.header');
-        if (window.scrollY > 50) {
-            header.style.background = 'rgba(10, 10, 15, 0.95)';
+function openLoginModal() {
+    document.getElementById('loginModal').classList.add('active');
+}
+
+function openSignupModal() {
+    document.getElementById('signupModal').classList.add('active');
+}
+
+function closeModals() {
+    document.getElementById('loginModal').classList.remove('active');
+    document.getElementById('signupModal').classList.remove('active');
+}
+
+function switchToSignup() {
+    document.getElementById('loginModal').classList.remove('active');
+    document.getElementById('signupModal').classList.add('active');
+}
+
+function switchToLogin() {
+    document.getElementById('signupModal').classList.remove('active');
+    document.getElementById('loginModal').classList.add('active');
+}
+
+function handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+
+    showLoading('Logging in...');
+
+    // Simulate login delay
+    setTimeout(() => {
+        hideLoading();
+
+        // Check if user exists in localStorage or accept any credentials for demo
+        const users = JSON.parse(localStorage.getItem('smartcreative_users') || '[]');
+        const user = users.find(u => u.email === email);
+
+        if (user && user.password === password) {
+            loginUser(user);
+        } else if (users.length === 0) {
+            // Demo mode - accept any login
+            loginUser({ name: email.split('@')[0], email: email });
         } else {
-            header.style.background = 'rgba(10, 10, 15, 0.85)';
+            showToast('error', 'Login Failed', 'Invalid email or password');
         }
-    });
+    }, 800);
 }
 
-// Navigation Functions
-function scrollToBuilder() {
-    document.getElementById('builder').scrollIntoView({ behavior: 'smooth' });
-    showToast('success', 'Studio Ready', 'Start creating your ad below');
+function handleSignup(e) {
+    e.preventDefault();
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+
+    showLoading('Creating account...');
+
+    setTimeout(() => {
+        hideLoading();
+
+        // Save user
+        const users = JSON.parse(localStorage.getItem('smartcreative_users') || '[]');
+
+        if (users.find(u => u.email === email)) {
+            showToast('error', 'Email Exists', 'This email is already registered');
+            return;
+        }
+
+        const newUser = { name, email, password };
+        users.push(newUser);
+        localStorage.setItem('smartcreative_users', JSON.stringify(users));
+
+        loginUser(newUser);
+        showToast('success', 'Welcome!', 'Your account has been created');
+    }, 1000);
 }
 
-function scrollToDashboard() {
-    document.getElementById('dashboard').scrollIntoView({ behavior: 'smooth' });
+function loginUser(user) {
+    currentUser = user;
+    isLoggedIn = true;
+    localStorage.setItem('smartcreative_user', JSON.stringify(user));
+    closeModals();
+    updateAuthUI();
+    showToast('success', 'Welcome back!', `Logged in as ${user.name || user.email}`);
 }
 
-function playDemo() {
-    showToast('info', 'Demo Video', 'Would open demo video in production');
+function logout() {
+    currentUser = null;
+    isLoggedIn = false;
+    localStorage.removeItem('smartcreative_user');
+    updateAuthUI();
+    showToast('info', 'Logged out', 'See you next time!');
 }
 
-// Canvas Functions
-function initializeCanvasDragDrop() {
-    const canvas = document.getElementById('designCanvas');
-    if (!canvas) return;
+function updateAuthUI() {
+    const headerActions = document.getElementById('headerActions');
+    const userMenu = document.getElementById('userMenu');
+    const userName = document.getElementById('userName');
 
+    if (isLoggedIn) {
+        headerActions.style.display = 'none';
+        userMenu.style.display = 'flex';
+        userName.textContent = currentUser.name || currentUser.email.split('@')[0];
+    } else {
+        headerActions.style.display = 'flex';
+        userMenu.style.display = 'none';
+    }
+}
+
+function handleGetStarted() {
+    if (isLoggedIn) {
+        scrollToSection('builder');
+    } else {
+        openSignupModal();
+    }
+}
+
+// ===== Navigation =====
+function scrollToSection(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// ===== Canvas Functions =====
+function initCanvas() {
+    const canvas = document.getElementById('canvas');
+
+    // Drag and drop
     canvas.addEventListener('dragover', (e) => {
         e.preventDefault();
-        canvas.classList.add('drag-over');
+        canvas.style.borderColor = 'var(--border-light)';
     });
 
     canvas.addEventListener('dragleave', () => {
-        canvas.classList.remove('drag-over');
+        canvas.style.borderColor = '';
     });
 
     canvas.addEventListener('drop', (e) => {
         e.preventDefault();
-        canvas.classList.remove('drag-over');
+        canvas.style.borderColor = '';
 
         if (e.dataTransfer.files.length > 0) {
-            handleImageDrop(e.dataTransfer.files[0]);
+            handleFileUpload({ target: { files: e.dataTransfer.files } });
         }
     });
 
     // Click to deselect
     canvas.addEventListener('click', (e) => {
-        if (e.target === canvas || e.target.id === 'canvasPlaceholder') {
+        if (e.target === canvas || e.target.classList.contains('canvas-empty')) {
             deselectAll();
         }
     });
 }
 
-function handleImageDrop(file) {
-    if (!file.type.startsWith('image/')) {
-        showToast('error', 'Invalid File', 'Please drop an image file');
+function hideCanvasEmpty() {
+    const empty = document.getElementById('canvasEmpty');
+    if (empty) empty.style.display = 'none';
+}
+
+function showCanvasEmpty() {
+    const empty = document.getElementById('canvasEmpty');
+    if (empty && canvasElements.length === 0) {
+        empty.style.display = 'block';
+    }
+}
+
+function setTool(tool) {
+    document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.closest('.tool-btn').classList.add('active');
+}
+
+function triggerUpload() {
+    document.getElementById('fileInput').click();
+}
+
+function handleFileUpload(e) {
+    const file = e.target.files[0];
+    if (!file || !file.type.startsWith('image/')) {
+        showToast('error', 'Invalid File', 'Please upload an image');
         return;
     }
 
     const reader = new FileReader();
-    reader.onload = (e) => {
-        addImageToCanvas(e.target.result);
-        showToast('success', 'Image Added', 'Your product image is on the canvas');
+    reader.onload = (event) => {
+        addImageElement(event.target.result);
+        showToast('success', 'Image Added', 'Your image is on the canvas');
     };
     reader.readAsDataURL(file);
 }
 
-function triggerImageUpload() {
-    document.getElementById('imageUpload').click();
-}
+function addImageElement(src) {
+    hideCanvasEmpty();
+    saveToUndo();
 
-function handleImageUpload(event) {
-    const file = event.target.files[0];
-    if (file) {
-        handleImageDrop(file);
-    }
-}
-
-function addImageToCanvas(src) {
-    hidePlaceholder();
-    saveToUndoStack();
-
-    const canvas = document.getElementById('designCanvas');
-    const img = document.createElement('div');
-    img.className = 'canvas-element image-element';
-    img.style.cssText = `
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 120px;
-        height: 120px;
+    const canvas = document.getElementById('canvas');
+    const el = document.createElement('div');
+    el.className = 'canvas-element';
+    el.style.cssText = `
+        width: 100px;
+        height: 100px;
         background-image: url(${src});
         background-size: cover;
         background-position: center;
-        border-radius: 8px;
-        cursor: move;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        border-radius: 6px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     `;
 
-    makeElementDraggable(img);
-    makeElementSelectable(img);
-    canvas.appendChild(img);
-    canvasElements.push(img);
+    makeDraggable(el);
+    makeSelectable(el);
+    canvas.appendChild(el);
+    canvasElements.push(el);
 }
 
-function addTextToCanvas() {
-    hidePlaceholder();
-    saveToUndoStack();
+function addText() {
+    hideCanvasEmpty();
+    saveToUndo();
 
-    const canvas = document.getElementById('designCanvas');
-    const text = document.createElement('div');
-    text.className = 'canvas-element text-element';
-    text.contentEditable = true;
-    text.textContent = 'Your Text Here';
-    text.style.cssText = `
-        position: absolute;
+    const canvas = document.getElementById('canvas');
+    const el = document.createElement('div');
+    el.className = 'canvas-element';
+    el.contentEditable = true;
+    el.textContent = 'Your Text';
+    el.style.cssText = `
+        font-size: 22px;
+        font-weight: 700;
+        color: white;
+        text-shadow: 0 2px 6px rgba(0,0,0,0.5);
         top: 30%;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 24px;
-        font-weight: 700;
-        color: white;
-        cursor: move;
-        padding: 8px 16px;
-        text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        padding: 6px 12px;
         outline: none;
+        min-width: 50px;
     `;
 
-    makeElementDraggable(text);
-    makeElementSelectable(text);
-    canvas.appendChild(text);
-    canvasElements.push(text);
+    makeDraggable(el);
+    makeSelectable(el);
+    canvas.appendChild(el);
+    canvasElements.push(el);
     showToast('info', 'Text Added', 'Click to edit, drag to move');
 }
 
-function addShapeToCanvas() {
-    hidePlaceholder();
-    saveToUndoStack();
+function addShape() {
+    hideCanvasEmpty();
+    saveToUndo();
 
-    const canvas = document.getElementById('designCanvas');
-    const shape = document.createElement('div');
-    shape.className = 'canvas-element shape-element';
-    shape.style.cssText = `
-        position: absolute;
-        top: 60%;
+    const canvas = document.getElementById('canvas');
+    const el = document.createElement('div');
+    el.className = 'canvas-element';
+    el.style.cssText = `
+        width: 140px;
+        height: 50px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 25px;
+        top: 65%;
         left: 50%;
         transform: translateX(-50%);
-        width: 200px;
-        height: 60px;
-        background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
-        border: 1px solid rgba(255,255,255,0.3);
-        border-radius: 30px;
-        cursor: move;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(8px);
     `;
 
-    makeElementDraggable(shape);
-    makeElementSelectable(shape);
-    canvas.appendChild(shape);
-    canvasElements.push(shape);
+    makeDraggable(el);
+    makeSelectable(el);
+    canvas.appendChild(el);
+    canvasElements.push(el);
 }
 
-function addTescoLogo() {
-    hidePlaceholder();
-    saveToUndoStack();
+function addAsset(type) {
+    hideCanvasEmpty();
+    saveToUndo();
 
-    const canvas = document.getElementById('designCanvas');
-    const logo = document.createElement('div');
-    logo.className = 'canvas-element tesco-logo-element';
-    logo.innerHTML = 'TESCO';
-    logo.style.cssText = `
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        padding: 6px 14px;
-        background: #00539F;
-        color: white;
-        font-size: 14px;
-        font-weight: 700;
-        border-radius: 4px;
-        cursor: move;
-        letter-spacing: 1px;
-    `;
+    const canvas = document.getElementById('canvas');
+    const el = document.createElement('div');
+    el.className = 'canvas-element';
 
-    makeElementDraggable(logo);
-    makeElementSelectable(logo);
-    canvas.appendChild(logo);
-    canvasElements.push(logo);
-    showToast('success', 'Logo Added', 'Tesco logo placed on canvas');
+    if (type === 'logo') {
+        el.textContent = 'TESCO';
+        el.style.cssText = `
+            background: var(--tesco-blue);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            top: 15px;
+            left: 15px;
+        `;
+        showToast('success', 'Logo Added', 'Tesco logo on canvas');
+    } else if (type === 'clubcard') {
+        el.textContent = 'Clubcard Price';
+        el.style.cssText = `
+            background: var(--clubcard);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            bottom: 15px;
+            left: 15px;
+        `;
+        showToast('success', 'Badge Added', 'Clubcard badge on canvas');
+    } else if (type === 'price') {
+        el.textContent = '£2.50';
+        el.style.cssText = `
+            background: var(--tesco-red);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 20px;
+            font-weight: 800;
+            bottom: 15px;
+            right: 15px;
+        `;
+        showToast('success', 'Price Added', 'Price tag on canvas');
+    }
+
+    makeDraggable(el);
+    makeSelectable(el);
+    canvas.appendChild(el);
+    canvasElements.push(el);
 }
 
-function addClubcardBadge() {
-    hidePlaceholder();
-    saveToUndoStack();
-
-    const canvas = document.getElementById('designCanvas');
-    const badge = document.createElement('div');
-    badge.className = 'canvas-element clubcard-element';
-    badge.innerHTML = 'Clubcard Price';
-    badge.style.cssText = `
-        position: absolute;
-        bottom: 20px;
-        left: 20px;
-        padding: 6px 12px;
-        background: #7B2D8E;
-        color: white;
-        font-size: 11px;
-        font-weight: 600;
-        border-radius: 4px;
-        cursor: move;
-    `;
-
-    makeElementDraggable(badge);
-    makeElementSelectable(badge);
-    canvas.appendChild(badge);
-    canvasElements.push(badge);
-    showToast('success', 'Badge Added', 'Clubcard price badge on canvas');
-}
-
-function addPriceTag() {
-    hidePlaceholder();
-    saveToUndoStack();
-
-    const canvas = document.getElementById('designCanvas');
-    const price = document.createElement('div');
-    price.className = 'canvas-element price-element';
-    price.innerHTML = '£2.50';
-    price.style.cssText = `
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        padding: 10px 16px;
-        background: #EE1C2E;
-        color: white;
-        font-size: 22px;
-        font-weight: 800;
-        border-radius: 6px;
-        cursor: move;
-    `;
-
-    makeElementDraggable(price);
-    makeElementSelectable(price);
-    canvas.appendChild(price);
-    canvasElements.push(price);
-    showToast('success', 'Price Added', 'Price tag on canvas');
-}
-
-function makeElementDraggable(element) {
+function makeDraggable(el) {
     let isDragging = false;
-    let offsetX, offsetY;
+    let startX, startY;
 
-    element.addEventListener('mousedown', (e) => {
-        if (e.target.contentEditable === 'true' && document.activeElement === e.target) {
-            return;
-        }
+    el.addEventListener('mousedown', (e) => {
+        if (el.contentEditable === 'true' && document.activeElement === el) return;
+
         isDragging = true;
-        const rect = element.getBoundingClientRect();
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
-        element.style.zIndex = 100;
+        const rect = el.getBoundingClientRect();
+        startX = e.clientX - rect.left;
+        startY = e.clientY - rect.top;
+        el.style.zIndex = 50;
+        el.style.transform = 'none';
     });
 
     document.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
 
-        const canvas = document.getElementById('designCanvas');
+        const canvas = document.getElementById('canvas');
         const canvasRect = canvas.getBoundingClientRect();
 
-        let x = e.clientX - canvasRect.left - offsetX;
-        let y = e.clientY - canvasRect.top - offsetY;
+        let x = e.clientX - canvasRect.left - startX;
+        let y = e.clientY - canvasRect.top - startY;
 
-        // Bounds checking
-        x = Math.max(0, Math.min(x, canvasRect.width - element.offsetWidth));
-        y = Math.max(0, Math.min(y, canvasRect.height - element.offsetHeight));
+        x = Math.max(0, Math.min(x, canvasRect.width - el.offsetWidth));
+        y = Math.max(0, Math.min(y, canvasRect.height - el.offsetHeight));
 
-        element.style.left = x + 'px';
-        element.style.top = y + 'px';
-        element.style.transform = 'none';
+        el.style.left = x + 'px';
+        el.style.top = y + 'px';
     });
 
     document.addEventListener('mouseup', () => {
         if (isDragging) {
             isDragging = false;
-            element.style.zIndex = '';
+            el.style.zIndex = '';
         }
     });
 }
 
-function makeElementSelectable(element) {
-    element.addEventListener('click', (e) => {
+function makeSelectable(el) {
+    el.addEventListener('click', (e) => {
         e.stopPropagation();
         deselectAll();
-        element.classList.add('selected');
-        element.style.outline = '2px solid #3B82F6';
-        element.style.outlineOffset = '2px';
-        selectedElement = element;
+        el.classList.add('selected');
+        selectedElement = el;
     });
 }
 
 function deselectAll() {
     document.querySelectorAll('.canvas-element').forEach(el => {
         el.classList.remove('selected');
-        el.style.outline = 'none';
     });
     selectedElement = null;
 }
 
-function hidePlaceholder() {
-    const placeholder = document.getElementById('canvasPlaceholder');
-    if (placeholder) {
-        placeholder.style.display = 'none';
-    }
-}
-
-function showPlaceholder() {
-    const placeholder = document.getElementById('canvasPlaceholder');
-    if (placeholder) {
-        placeholder.style.display = 'block';
-    }
-}
-
-// Canvas Actions
 function clearCanvas() {
-    saveToUndoStack();
-    const canvas = document.getElementById('designCanvas');
+    saveToUndo();
     document.querySelectorAll('.canvas-element').forEach(el => el.remove());
     canvasElements = [];
-    showPlaceholder();
+    showCanvasEmpty();
     showToast('info', 'Canvas Cleared', 'Starting fresh');
 }
 
-function changeCanvasSize(format) {
-    const canvas = document.getElementById('designCanvas');
+function saveToUndo() {
+    const canvas = document.getElementById('canvas');
+    undoStack.push(canvas.innerHTML);
+    if (undoStack.length > 20) undoStack.shift();
+    redoStack = [];
+}
+
+function undo() {
+    if (undoStack.length === 0) return;
+    const canvas = document.getElementById('canvas');
+    redoStack.push(canvas.innerHTML);
+    canvas.innerHTML = undoStack.pop();
+    reinitElements();
+    showToast('info', 'Undo', 'Action undone');
+}
+
+function redo() {
+    if (redoStack.length === 0) return;
+    const canvas = document.getElementById('canvas');
+    undoStack.push(canvas.innerHTML);
+    canvas.innerHTML = redoStack.pop();
+    reinitElements();
+    showToast('info', 'Redo', 'Action redone');
+}
+
+function reinitElements() {
+    canvasElements = [];
+    document.querySelectorAll('.canvas-element').forEach(el => {
+        makeDraggable(el);
+        makeSelectable(el);
+        canvasElements.push(el);
+    });
+}
+
+function changeFormat(format) {
+    const canvas = document.getElementById('canvas');
     const sizes = {
-        'instagram': { w: 400, h: 400 },
-        'facebook': { w: 400, h: 209 },
-        'tesco-app': { w: 280, h: 500 },
-        'instore': { w: 400, h: 225 }
+        'square': { w: 360, h: 360 },
+        'landscape': { w: 400, h: 209 },
+        'portrait': { w: 280, h: 420 },
+        'wide': { w: 420, h: 236 }
     };
 
     const size = sizes[format];
@@ -379,7 +469,6 @@ function changeCanvasSize(format) {
         canvas.style.width = size.w + 'px';
         canvas.style.height = size.h + 'px';
     }
-    showToast('info', 'Format Changed', `Canvas set to ${format.replace('-', ' ')}`);
 }
 
 function zoomIn() {
@@ -397,325 +486,296 @@ function zoomOut() {
 }
 
 function applyZoom() {
-    const container = document.getElementById('canvasContainer');
-    container.style.transform = `scale(${currentZoom / 100})`;
-    document.getElementById('zoomLevel').textContent = currentZoom + '%';
+    const canvas = document.getElementById('canvas');
+    canvas.style.transform = `scale(${currentZoom / 100})`;
+    document.getElementById('zoomDisplay').textContent = currentZoom + '%';
 }
 
-function saveToUndoStack() {
-    const canvas = document.getElementById('designCanvas');
-    undoStack.push(canvas.innerHTML);
-    if (undoStack.length > 20) undoStack.shift();
-    redoStack = [];
-}
-
-function undo() {
-    if (undoStack.length === 0) return;
-    const canvas = document.getElementById('designCanvas');
-    redoStack.push(canvas.innerHTML);
-    canvas.innerHTML = undoStack.pop();
-    reinitializeElements();
-}
-
-function redo() {
-    if (redoStack.length === 0) return;
-    const canvas = document.getElementById('designCanvas');
-    undoStack.push(canvas.innerHTML);
-    canvas.innerHTML = redoStack.pop();
-    reinitializeElements();
-}
-
-function reinitializeElements() {
-    canvasElements = [];
-    document.querySelectorAll('.canvas-element').forEach(el => {
-        makeElementDraggable(el);
-        makeElementSelectable(el);
-        canvasElements.push(el);
-    });
-}
-
-// AI Generation
-function generateWithAI() {
+// ===== AI & Generation =====
+function generateAd() {
     const prompt = document.getElementById('aiPrompt').value.trim();
     if (!prompt) {
-        showToast('info', 'Describe Your Ad', 'Tell us what you want to create');
+        showToast('info', 'Describe Your Ad', 'Type what you want to create');
         return;
     }
 
-    showLoading('Analyzing your description...');
+    showLoading('Analyzing prompt...');
 
     setTimeout(() => {
-        updateLoadingText('Generating creative options...');
-    }, 800);
+        document.getElementById('loadingText').textContent = 'Generating layout...';
+    }, 600);
 
     setTimeout(() => {
-        updateLoadingText('Applying brand guidelines...');
-    }, 1600);
+        document.getElementById('loadingText').textContent = 'Adding elements...';
+    }, 1200);
 
     setTimeout(() => {
         hideLoading();
-        generateCreative(prompt);
-        showToast('success', 'Creative Ready', 'Your ad has been generated');
-    }, 2500);
+        createGeneratedAd(prompt);
+        showToast('success', 'Ad Generated!', 'Your creative is ready');
+    }, 1800);
 }
 
-function generateCreative(prompt) {
-    // Clear and generate based on prompt
+function createGeneratedAd(prompt) {
     clearCanvas();
-    hidePlaceholder();
+    hideCanvasEmpty();
 
-    const canvas = document.getElementById('designCanvas');
+    const canvas = document.getElementById('canvas');
+    const promptLower = prompt.toLowerCase();
 
-    // Determine theme from prompt
-    const isSummer = prompt.toLowerCase().includes('summer') || prompt.toLowerCase().includes('fresh');
-    const hasClubcard = prompt.toLowerCase().includes('clubcard') || prompt.toLowerCase().includes('price');
-    const isValue = prompt.toLowerCase().includes('value') || prompt.toLowerCase().includes('deal');
-
-    // Set background based on theme
-    if (isSummer) {
-        canvas.style.background = 'linear-gradient(145deg, #2d5a3d 0%, #1a3626 100%)';
-    } else if (isValue) {
-        canvas.style.background = 'linear-gradient(145deg, #4a2c2c 0%, #2a1a1a 100%)';
+    // Set background based on prompt
+    if (promptLower.includes('summer') || promptLower.includes('fresh')) {
+        canvas.style.background = 'linear-gradient(145deg, #2d5a3d, #1a3626)';
+    } else if (promptLower.includes('value') || promptLower.includes('deal')) {
+        canvas.style.background = 'linear-gradient(145deg, #5a2d2d, #361a1a)';
+    } else if (promptLower.includes('clubcard')) {
+        canvas.style.background = 'linear-gradient(145deg, #4a2d5a, #2d1a36)';
     } else {
-        canvas.style.background = 'linear-gradient(145deg, #2a3a5a 0%, #1a2540 100%)';
+        canvas.style.background = 'linear-gradient(145deg, #2d3a5a, #1a2436)';
     }
 
     // Add headline
     const headline = document.createElement('div');
-    headline.className = 'canvas-element text-element';
-    headline.textContent = isSummer ? 'Fresh & Delicious' : (isValue ? 'Great Value' : 'Special Offer');
+    headline.className = 'canvas-element';
+    headline.textContent = promptLower.includes('summer') ? 'Fresh & Tasty' :
+        promptLower.includes('value') ? 'Great Value' :
+            promptLower.includes('clubcard') ? 'Clubcard Deal' : 'Special Offer';
     headline.style.cssText = `
-        position: absolute;
+        font-size: 26px;
+        font-weight: 700;
+        color: white;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.4);
         top: 25%;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 28px;
-        font-weight: 800;
-        color: white;
-        cursor: move;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.4);
     `;
-    makeElementDraggable(headline);
-    makeElementSelectable(headline);
+    makeDraggable(headline);
+    makeSelectable(headline);
     canvas.appendChild(headline);
+    canvasElements.push(headline);
 
     // Add subtext
     const subtext = document.createElement('div');
-    subtext.className = 'canvas-element text-element';
-    subtext.textContent = 'Available at Tesco';
+    subtext.className = 'canvas-element';
+    subtext.textContent = 'Available now at Tesco';
     subtext.style.cssText = `
-        position: absolute;
-        top: 40%;
+        font-size: 13px;
+        color: rgba(255,255,255,0.8);
+        top: 38%;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 14px;
-        color: rgba(255,255,255,0.8);
-        cursor: move;
     `;
-    makeElementDraggable(subtext);
-    makeElementSelectable(subtext);
+    makeDraggable(subtext);
+    makeSelectable(subtext);
     canvas.appendChild(subtext);
+    canvasElements.push(subtext);
 
-    // Add product placeholder
+    // Add product circle
     const product = document.createElement('div');
-    product.className = 'canvas-element shape-element';
+    product.className = 'canvas-element';
+    const color = promptLower.includes('summer') ? '#7ab85a' :
+        promptLower.includes('value') ? '#e85d5d' : '#5a7ab8';
     product.style.cssText = `
-        position: absolute;
-        top: 50%;
-        right: 15%;
-        width: 100px;
-        height: 100px;
-        background: radial-gradient(circle, ${isSummer ? '#7ab85a' : (isValue ? '#e85d5d' : '#5a7ab8')} 0%, ${isSummer ? '#4a7a3a' : (isValue ? '#a84040' : '#3a5a8a')} 80%);
+        width: 80px;
+        height: 80px;
+        background: radial-gradient(circle, ${color}, ${color.replace('#', '#4a')});
         border-radius: 50%;
-        cursor: move;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        top: 45%;
+        right: 15%;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
     `;
-    makeElementDraggable(product);
-    makeElementSelectable(product);
+    makeDraggable(product);
+    makeSelectable(product);
     canvas.appendChild(product);
+    canvasElements.push(product);
 
-    // Add Tesco logo
-    addTescoLogo();
+    // Add logo
+    addAsset('logo');
 
-    // Add Clubcard if mentioned
-    if (hasClubcard) {
-        addClubcardBadge();
+    // Add price or clubcard based on prompt
+    if (promptLower.includes('clubcard')) {
+        addAsset('clubcard');
     }
-
-    // Add price
-    addPriceTag();
-
-    canvasElements = Array.from(document.querySelectorAll('.canvas-element'));
+    addAsset('price');
 }
 
-function applySuggestion(type) {
-    const prompts = {
-        'summer': 'Fresh summer produce promotion with vibrant colors',
-        'clubcard': 'Clubcard exclusive deal with savings badge',
-        'fresh': 'Fresh and healthy groceries, clean design',
-        'value': 'Great value pack deal with bold pricing'
-    };
-    document.getElementById('aiPrompt').value = prompts[type] || '';
-    generateWithAI();
+function applyTheme(theme) {
+    document.getElementById('aiPrompt').value = {
+        'summer': 'Summer fruit promotion, bright and fresh colors',
+        'value': 'Great value pack deal, bold pricing',
+        'fresh': 'Fresh groceries, healthy lifestyle theme',
+        'clubcard': 'Clubcard exclusive savings, member prices'
+    }[theme] || '';
+
+    generateAd();
 }
 
-function applyStyle(style) {
-    currentStyle = style;
+function setStyle(style) {
     document.querySelectorAll('.style-btn').forEach(btn => btn.classList.remove('active'));
     event.target.closest('.style-btn').classList.add('active');
+    currentStyle = style;
 
-    const canvas = document.getElementById('designCanvas');
+    const canvas = document.getElementById('canvas');
     const styles = {
-        'clean': 'linear-gradient(145deg, #ffffff 0%, #f5f5f5 100%)',
-        'warm': 'linear-gradient(145deg, #3d2a1a 0%, #2a1a0a 100%)',
-        'dark': 'linear-gradient(145deg, #1a1a2a 0%, #0a0a14 100%)',
-        'playful': 'linear-gradient(145deg, #4a2a5a 0%, #2a1a3a 100%)'
+        'gradient': 'linear-gradient(145deg, #1e3a2f, #0f1f18)',
+        'solid': '#1a3a28',
+        'light': '#f5f5f5',
+        'dark': '#111111'
     };
-    canvas.style.background = styles[style] || styles['clean'];
-    showToast('info', 'Style Applied', style.charAt(0).toUpperCase() + style.slice(1) + ' theme active');
+    canvas.style.background = styles[style];
 }
 
-// Quick Tools
-function removeBackground() {
+// ===== Quick Actions =====
+function removeBg() {
     showLoading('Removing background...');
     setTimeout(() => {
         hideLoading();
-        showToast('success', 'Background Removed', 'Clean product shot ready');
-    }, 1500);
-}
-
-function autoEnhance() {
-    showLoading('Enhancing image...');
-    setTimeout(() => {
-        hideLoading();
-        showToast('success', 'Auto-Enhanced', 'Colors and contrast optimized');
+        showToast('success', 'Background Removed', 'Image now has transparent background');
     }, 1200);
 }
 
-function generateVariants() {
-    showLoading('Creating variants...');
+function enhance() {
+    showLoading('Enhancing...');
     setTimeout(() => {
         hideLoading();
-        showToast('success', '3 Variants Created', 'Check the variant panel');
-    }, 2000);
+        showToast('success', 'Enhanced!', 'Colors and contrast improved');
+    }, 1000);
 }
 
-// Export Functions
-function exportAd() {
-    showLoading('Preparing export...');
+// ===== Export =====
+function exportAll() {
+    if (!isLoggedIn) {
+        showToast('info', 'Login Required', 'Please log in to export');
+        openLoginModal();
+        return;
+    }
+
+    showLoading('Preparing exports...');
+
     setTimeout(() => {
-        hideLoading();
-        showToast('success', 'Export Ready', '4 formats packaged for download');
-    }, 1500);
-}
-
-function toggleFormat(btn) {
-    btn.classList.toggle('active');
-}
-
-function downloadAll() {
-    showLoading('Packaging files...');
-    setTimeout(() => {
-        updateLoadingText('Running compliance checks...');
+        document.getElementById('loadingText').textContent = 'Checking compliance...';
     }, 600);
+
     setTimeout(() => {
-        updateLoadingText('Optimizing for web...');
+        document.getElementById('loadingText').textContent = 'Packaging files...';
     }, 1200);
+
     setTimeout(() => {
         hideLoading();
-        showToast('success', 'Download Started', 'SmartCreative_Export.zip ready');
-
+        showToast('success', 'Export Ready!', 'Check your downloads folder');
         // Simulate download
-        const link = document.createElement('a');
-        link.href = '#';
-        link.download = 'SmartCreative_Export.zip';
-        showToast('info', 'Demo Mode', 'In production, this would download the actual files');
-    }, 2000);
+        downloadDemoFile();
+    }, 1800);
 }
 
-// Dashboard Functions
-function initializeDashboard() {
-    updateTimeValue();
+function downloadPackage() {
+    exportAll();
+}
+
+function downloadDemoFile() {
+    // Create a simple text file as demo
+    const content = `SmartCreative Studio Export
+============================
+Export Date: ${new Date().toLocaleString()}
+User: ${currentUser?.name || 'Guest'}
+
+Formats Included:
+- Instagram (1080x1080)
+- Facebook (1200x628)  
+- Tesco App (750x1334)
+- In-Store (1920x1080)
+
+Note: This is a demo export. In production, 
+this would be a ZIP file with all image formats.
+
+Thank you for using SmartCreative Studio!
+Built by Ayush Ranjan & Sachin Verma
+Tesco InnovAItion Jam 2025`;
+
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'SmartCreative_Export.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+// ===== Dashboard =====
+function initDashboard() {
+    updateTriggers();
     startMetricsUpdate();
 }
 
-function updateTimeValue() {
+function updateTriggers() {
     const hour = new Date().getHours();
-    let timeOfDay;
-    if (hour < 12) timeOfDay = 'Morning';
-    else if (hour < 17) timeOfDay = 'Afternoon';
-    else if (hour < 21) timeOfDay = 'Evening';
-    else timeOfDay = 'Night';
+    let timeOfDay = hour < 12 ? 'Morning' : hour < 17 ? 'Afternoon' : 'Evening';
 
-    const timeEl = document.getElementById('timeValue');
+    const timeEl = document.getElementById('triggerTime');
     if (timeEl) timeEl.textContent = timeOfDay;
 }
 
 function startMetricsUpdate() {
     updateMetrics();
-    dashboardInterval = setInterval(updateMetrics, 3000);
+    dashboardUpdateInterval = setInterval(updateMetrics, 3000);
 }
 
 function updateMetrics() {
-    // Impressions
-    const impressionsEl = document.getElementById('impressionsValue');
-    if (impressionsEl) {
-        const current = parseInt(impressionsEl.textContent.replace(/,/g, ''));
-        const newVal = current + Math.floor(Math.random() * 50) + 10;
-        animateValue(impressionsEl, current, newVal, 800);
+    // Views
+    const viewsEl = document.getElementById('metricViews');
+    if (viewsEl) {
+        const current = parseInt(viewsEl.textContent.replace(/,/g, '')) || 14892;
+        const newVal = current + Math.floor(Math.random() * 40) + 5;
+        animateNumber(viewsEl, current, newVal);
     }
 
     // Engagement
-    const engagementEl = document.getElementById('engagementValue');
-    if (engagementEl) {
-        const newEng = (4.2 + Math.random() * 0.8).toFixed(1);
-        engagementEl.textContent = newEng + '%';
+    const engEl = document.getElementById('metricEngagement');
+    if (engEl) {
+        engEl.textContent = (4.2 + Math.random() * 0.8).toFixed(1) + '%';
     }
 
     // ROI
-    const roiEl = document.getElementById('roiValue');
+    const roiEl = document.getElementById('metricROI');
     if (roiEl) {
-        const newRoi = Math.floor(280 + Math.random() * 60);
-        roiEl.textContent = newRoi + '%';
+        roiEl.textContent = Math.floor(280 + Math.random() * 60) + '%';
     }
 
     // Rotations
-    const rotationsEl = document.getElementById('rotationsValue');
-    if (rotationsEl) {
-        rotationsEl.textContent = Math.floor(35 + Math.random() * 15);
+    const rotEl = document.getElementById('metricRotations');
+    if (rotEl) {
+        rotEl.textContent = Math.floor(35 + Math.random() * 12);
     }
 
-    // Update weather randomly
-    const weatherEl = document.getElementById('weatherValue');
+    // Update triggers randomly
+    const weatherEl = document.getElementById('triggerWeather');
     if (weatherEl) {
-        const temps = ['Sunny, 22°C', 'Partly Cloudy, 19°C', 'Clear, 24°C'];
-        weatherEl.textContent = temps[Math.floor(Math.random() * temps.length)];
+        const weathers = ['Sunny, 22°C', 'Cloudy, 18°C', 'Clear, 24°C'];
+        weatherEl.textContent = weathers[Math.floor(Math.random() * weathers.length)];
     }
 
-    // Update footfall
-    const footfallEl = document.getElementById('footfallValue');
-    if (footfallEl) {
+    const trafficEl = document.getElementById('triggerTraffic');
+    if (trafficEl) {
         const levels = ['High', 'Medium', 'Very High'];
-        footfallEl.textContent = levels[Math.floor(Math.random() * levels.length)];
+        trafficEl.textContent = levels[Math.floor(Math.random() * levels.length)];
     }
 
-    // Update trending
-    const trendEl = document.getElementById('trendValue');
+    const trendEl = document.getElementById('triggerTrend');
     if (trendEl) {
-        const trends = ['Berries +18%', 'Dairy +12%', 'Snacks +22%', 'Drinks +15%'];
+        const trends = ['Berries +18%', 'Dairy +12%', 'Snacks +22%'];
         trendEl.textContent = trends[Math.floor(Math.random() * trends.length)];
     }
 }
 
-function animateValue(element, start, end, duration) {
-    const range = end - start;
+function animateNumber(el, start, end) {
+    const duration = 600;
     const startTime = performance.now();
 
     function update(currentTime) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        const current = Math.floor(start + range * easeOutCubic(progress));
-        element.textContent = current.toLocaleString();
+        const value = Math.floor(start + (end - start) * easeOut(progress));
+        el.textContent = value.toLocaleString();
 
         if (progress < 1) {
             requestAnimationFrame(update);
@@ -725,110 +785,168 @@ function animateValue(element, start, end, duration) {
     requestAnimationFrame(update);
 }
 
-function easeOutCubic(t) {
+function easeOut(t) {
     return 1 - Math.pow(1 - t, 3);
 }
 
-// Animation on Scroll
-function animateOnScroll() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1 });
+// ===== Chart =====
+function initChart() {
+    const canvas = document.getElementById('performanceChart');
+    if (!canvas) return;
 
-    document.querySelectorAll('.feature-card, .layer-card, .metric-card, .about-card').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observer.observe(el);
-    });
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.parentElement.clientWidth;
+    canvas.height = 180;
 
-    // Add CSS for visible state
-    const style = document.createElement('style');
-    style.textContent = `
-        .visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-    `;
-    document.head.appendChild(style);
+    drawChart(ctx, canvas.width, canvas.height);
+
+    // Redraw periodically
+    setInterval(() => {
+        drawChart(ctx, canvas.width, canvas.height);
+    }, 5000);
 }
 
-// Toast Notifications
+function drawChart(ctx, width, height) {
+    ctx.clearRect(0, 0, width, height);
+
+    // Grid lines
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.lineWidth = 1;
+    for (let i = 0; i < 5; i++) {
+        const y = 20 + i * 35;
+        ctx.beginPath();
+        ctx.moveTo(40, y);
+        ctx.lineTo(width - 20, y);
+        ctx.stroke();
+    }
+
+    // Generate random data
+    const points = 8;
+    const data1 = Array.from({ length: points }, () => 30 + Math.random() * 100);
+    const data2 = Array.from({ length: points }, () => 50 + Math.random() * 80);
+    const data3 = Array.from({ length: points }, () => 60 + Math.random() * 60);
+
+    // Draw lines
+    const drawLine = (data, color) => {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+
+        for (let i = 0; i < data.length; i++) {
+            const x = 40 + (i * (width - 60) / (points - 1));
+            const y = height - 30 - data[i];
+
+            if (i === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+        }
+        ctx.stroke();
+
+        // Draw points
+        ctx.fillStyle = color;
+        for (let i = 0; i < data.length; i++) {
+            const x = 40 + (i * (width - 60) / (points - 1));
+            const y = height - 30 - data[i];
+            ctx.beginPath();
+            ctx.arc(x, y, 3, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    };
+
+    drawLine(data1, '#10b981');
+    drawLine(data2, '#3b82f6');
+    drawLine(data3, '#8b5cf6');
+
+    // Labels
+    ctx.fillStyle = '#6b7280';
+    ctx.font = '10px Inter';
+    const labels = ['9am', '11am', '1pm', '3pm', '5pm', '7pm', '9pm', 'Now'];
+    for (let i = 0; i < labels.length; i++) {
+        const x = 40 + (i * (width - 60) / (points - 1));
+        ctx.fillText(labels[i], x - 10, height - 8);
+    }
+}
+
+// ===== Utilities =====
 function showToast(type, title, message) {
     const container = document.getElementById('toastContainer');
     if (!container) return;
 
+    const icons = {
+        success: '✓',
+        error: '✕',
+        info: 'ℹ'
+    };
+
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
     toast.innerHTML = `
-        <div class="toast-icon">${type === 'success' ? '✓' : type === 'info' ? 'ℹ' : '!'}</div>
+        <div class="toast-icon">${icons[type] || 'ℹ'}</div>
         <div class="toast-content">
-            <div class="toast-title">${title}</div>
-            <div class="toast-message">${message}</div>
+            <strong>${title}</strong>
+            <p>${message}</p>
         </div>
     `;
+
     container.appendChild(toast);
 
     setTimeout(() => {
         toast.style.animation = 'slideIn 0.3s ease reverse';
         setTimeout(() => toast.remove(), 300);
-    }, 4000);
+    }, 3500);
 }
 
-// Loading Overlay
 function showLoading(text) {
     const overlay = document.getElementById('loadingOverlay');
     const loadingText = document.getElementById('loadingText');
-    if (overlay && loadingText) {
-        loadingText.textContent = text;
+    if (overlay) {
         overlay.classList.add('active');
-    }
-}
-
-function updateLoadingText(text) {
-    const loadingText = document.getElementById('loadingText');
-    if (loadingText) {
-        loadingText.textContent = text;
+        if (loadingText) loadingText.textContent = text;
     }
 }
 
 function hideLoading() {
     const overlay = document.getElementById('loadingOverlay');
-    if (overlay) {
-        overlay.classList.remove('active');
-    }
+    if (overlay) overlay.classList.remove('active');
 }
 
-// Keyboard shortcuts
-document.addEventListener('keydown', (e) => {
-    // Undo: Ctrl+Z
-    if (e.ctrlKey && e.key === 'z' && !e.shiftKey) {
-        e.preventDefault();
-        undo();
-    }
-    // Redo: Ctrl+Shift+Z
-    if (e.ctrlKey && e.shiftKey && e.key === 'z') {
-        e.preventDefault();
-        redo();
-    }
-    // Delete selected
-    if (e.key === 'Delete' || e.key === 'Backspace') {
-        if (selectedElement && selectedElement.contentEditable !== 'true') {
+// ===== Keyboard Shortcuts =====
+function setupKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        // Ctrl+Z = Undo
+        if (e.ctrlKey && e.key === 'z' && !e.shiftKey) {
             e.preventDefault();
-            saveToUndoStack();
-            selectedElement.remove();
-            canvasElements = canvasElements.filter(el => el !== selectedElement);
-            selectedElement = null;
-            if (canvasElements.length === 0) showPlaceholder();
+            undo();
         }
-    }
-});
+        // Ctrl+Shift+Z = Redo
+        if (e.ctrlKey && e.shiftKey && e.key === 'z') {
+            e.preventDefault();
+            redo();
+        }
+        // Delete selected element
+        if ((e.key === 'Delete' || e.key === 'Backspace') && selectedElement) {
+            if (selectedElement.contentEditable !== 'true' || document.activeElement !== selectedElement) {
+                e.preventDefault();
+                saveToUndo();
+                selectedElement.remove();
+                canvasElements = canvasElements.filter(el => el !== selectedElement);
+                selectedElement = null;
+                showCanvasEmpty();
+            }
+        }
+        // Escape to close modals
+        if (e.key === 'Escape') {
+            closeModals();
+            deselectAll();
+        }
+    });
+}
 
-// Cleanup on page unload
+// ===== Cleanup =====
 window.addEventListener('beforeunload', () => {
-    if (dashboardInterval) clearInterval(dashboardInterval);
+    if (dashboardUpdateInterval) {
+        clearInterval(dashboardUpdateInterval);
+    }
 });

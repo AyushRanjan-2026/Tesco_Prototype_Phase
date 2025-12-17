@@ -5,733 +5,467 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmartCreative Studio | Tesco Retail Media</title>
-    <meta name="description"
-        content="Create beautiful retail ads in minutes. Built for the Tesco Retail Media InnovAItion Jam 2025.">
+    <meta name="description" content="AI-powered ad creation tool for Tesco suppliers. Built for InnovAItion Jam 2025.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <div class="bg-gradient"></div>
-    <div class="floating-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-    </div>
 
+    <!-- Header -->
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                <div class="logo-icon">
-                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="40" height="40" rx="10" fill="url(#logo-gradient)" />
-                        <path d="M12 20L18 26L28 14" stroke="white" stroke-width="3" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                        <defs>
-                            <linearGradient id="logo-gradient" x1="0" y1="0" x2="40" y2="40">
-                                <stop stop-color="#EE1C2E" />
-                                <stop offset="1" stop-color="#00539F" />
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-                <span class="logo-text">Smart<span class="highlight">Creative</span></span>
+                <div class="logo-icon">✓</div>
+                <span class="logo-text">SmartCreative</span>
             </div>
             <nav class="nav">
-                <a href="#features" class="nav-link">Features</a>
-                <a href="#builder" class="nav-link">Studio</a>
-                <a href="#dashboard" class="nav-link">Dashboard</a>
-                <a href="#about" class="nav-link">About</a>
+                <a href="#features">Features</a>
+                <a href="#builder">Studio</a>
+                <a href="#dashboard">Dashboard</a>
+                <a href="#about">About</a>
             </nav>
-            <div class="header-actions">
-                <button class="btn btn-ghost">Log In</button>
-                <button class="btn btn-primary">Get Started</button>
+            <div class="header-actions" id="headerActions">
+                <button class="btn btn-ghost" onclick="openLoginModal()">Log In</button>
+                <button class="btn btn-primary" onclick="openSignupModal()">Sign Up</button>
+            </div>
+            <div class="user-menu" id="userMenu" style="display: none;">
+                <span id="userName">User</span>
+                <button class="btn btn-ghost" onclick="logout()">Log Out</button>
             </div>
         </div>
     </header>
 
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <div class="badge">
-                <span class="badge-icon">✨</span>
-                Tesco InnovAItion Jam 2025
-            </div>
-            <h1 class="hero-title">
-                Make ads that<br>
-                <span class="gradient-text">actually work</span>
-            </h1>
+            <div class="badge">🎓 Student Project - Tesco InnovAItion Jam 2025</div>
+            <h1>Create Tesco ads<br><span class="gradient-text">without the hassle</span></h1>
             <p class="hero-subtitle">
-                Stop wasting hours on design tools. Drop in your product, tell us what you need,
-                and we'll handle the rest. Beautiful ads for every channel, automatically optimized.
+                We built this for small suppliers who don't have design teams.
+                Upload your product, tell us what you need, and get professional ads in minutes.
             </p>
-            <div class="two-layers">
-                <div class="layer-card" onclick="scrollToBuilder()">
-                    <div class="layer-icon">🎨</div>
+            <div class="hero-cards">
+                <div class="hero-card" onclick="scrollToSection('builder')">
+                    <span class="card-icon">🎨</span>
                     <h3>Creative Studio</h3>
-                    <p>Build professional ads without design skills. AI does the heavy lifting.</p>
-                    <span class="layer-cta">Try it now →</span>
+                    <p>Drag-drop editor with AI help</p>
                 </div>
-                <div class="layer-card" onclick="scrollToDashboard()">
-                    <div class="layer-icon">📊</div>
-                    <h3>Smart Dashboard</h3>
-                    <p>Watch your ads adapt in real-time based on weather, traffic & trends.</p>
-                    <span class="layer-cta">See it live →</span>
+                <div class="hero-card" onclick="scrollToSection('dashboard')">
+                    <span class="card-icon">📊</span>
+                    <h3>Live Dashboard</h3>
+                    <p>Watch your ads perform</p>
                 </div>
             </div>
-            <div class="hero-actions">
-                <button class="btn btn-primary btn-lg" onclick="scrollToBuilder()">
-                    <span>Open Studio</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
+            <div class="hero-buttons">
+                <button class="btn btn-primary btn-lg" onclick="handleGetStarted()">
+                    Get Started Free
                 </button>
-                <button class="btn btn-outline btn-lg" onclick="playDemo()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="5 3 19 12 5 21 5 3" />
-                    </svg>
-                    <span>Watch Demo</span>
+                <button class="btn btn-outline btn-lg" onclick="scrollToSection('features')">
+                    Learn More
                 </button>
-            </div>
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-value">&lt;500KB</span>
-                    <span class="stat-label">File Size</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <span class="stat-value">4</span>
-                    <span class="stat-label">Formats</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <span class="stat-value">Live</span>
-                    <span class="stat-label">Updates</span>
-                </div>
             </div>
         </div>
-        <div class="hero-visual">
-            <div class="canvas-preview">
-                <div class="preview-header">
-                    <div class="preview-dots">
-                        <span></span><span></span><span></span>
-                    </div>
-                    <span class="preview-title">SmartCreative Studio</span>
+        <div class="hero-preview">
+            <div class="preview-window">
+                <div class="preview-bar">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
                 </div>
                 <div class="preview-content">
                     <div class="sample-ad">
-                        <div class="ad-product"></div>
-                        <div class="ad-text">
-                            <div class="ad-headline">Fresh & Local</div>
-                            <div class="ad-subtext">Available at Tesco</div>
+                        <div class="ad-logo">TESCO</div>
+                        <div class="ad-product-circle"></div>
+                        <div class="ad-text-area">
+                            <div class="ad-headline">Fresh Berries</div>
+                            <div class="ad-price">£2.50</div>
                         </div>
-                        <div class="ad-badge tesco-badge">
-                            <svg width="60" height="20" viewBox="0 0 60 20">
-                                <rect width="60" height="20" rx="3" fill="#00539F" />
-                                <text x="30" y="14" text-anchor="middle" fill="white" font-size="10"
-                                    font-weight="600">TESCO</text>
-                            </svg>
-                        </div>
-                        <div class="clubcard-badge">
-                            <span>Clubcard Price</span>
-                        </div>
+                        <div class="ad-clubcard">Clubcard Price</div>
                     </div>
-                </div>
-            </div>
-            <div class="floating-elements">
-                <div class="float-card float-1">
-                    <div class="float-icon">🎯</div>
-                    <span>Auto-resize</span>
-                </div>
-                <div class="float-card float-2">
-                    <div class="float-icon">✓</div>
-                    <span>Brand safe</span>
-                </div>
-                <div class="float-card float-3">
-                    <div class="float-icon">⚡</div>
-                    <span>Fast export</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="features" class="features">
+    <!-- Features Section -->
+    <section id="features" class="features-section">
         <div class="section-header">
-            <span class="section-badge">Features</span>
-            <h2 class="section-title">Everything you need, <span class="gradient-text">nothing you don't</span></h2>
-            <p class="section-subtitle">We kept it simple. Upload, create, export. That's it.</p>
+            <span class="section-tag">What We Built</span>
+            <h2>Everything you need to create ads</h2>
+            <p>No Photoshop required. Just your product photos and ideas.</p>
         </div>
 
-        <div class="feature-category">
-            <h3 class="category-title"><span class="category-icon">🎨</span> Creative Tools</h3>
-            <p class="category-desc">Build ads that look like an agency made them.</p>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                            <polyline points="17,8 12,3 7,8" />
-                            <line x1="12" y1="3" x2="12" y2="15" />
-                        </svg>
-                    </div>
-                    <h4>Drag & Drop Upload</h4>
-                    <p>Throw in your product photos and logos. We'll organize them for you.</p>
-                </div>
-                <div class="feature-card featured">
-                    <div class="feature-badge">Popular</div>
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                            <path d="M2 17l10 5 10-5" />
-                            <path d="M2 12l10 5 10-5" />
-                        </svg>
-                    </div>
-                    <h4>AI Generation</h4>
-                    <p>Describe what you want. Get multiple options in seconds.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" />
-                            <circle cx="8.5" cy="8.5" r="1.5" />
-                            <path d="M21 15l-5-5L5 21" />
-                        </svg>
-                    </div>
-                    <h4>Background Removal</h4>
-                    <p>Click once. Messy background gone. Clean product shot ready.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="3" width="20" height="14" rx="2" />
-                            <path d="M8 21h8" />
-                            <path d="M12 17v4" />
-                        </svg>
-                    </div>
-                    <h4>Multi-Format Export</h4>
-                    <p>Instagram, Facebook, Tesco app, in-store screens. One click, all formats.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 12l2 2 4-4" />
-                            <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <h4>Brand Compliance</h4>
-                    <p>Every design checked against Tesco guidelines automatically.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                        </svg>
-                    </div>
-                    <h4>Instant Preview</h4>
-                    <p>See exactly how your ad looks on each platform before exporting.</p>
-                </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📤</div>
+                <h3>Easy Upload</h3>
+                <p>Drag and drop your product photos. We handle the rest - resizing, cropping, background removal.</p>
             </div>
-        </div>
-
-        <div class="feature-category">
-            <h3 class="category-title"><span class="category-icon">📊</span> Smart Optimization</h3>
-            <p class="category-desc">Your ads get better without you touching them.</p>
-            <div class="features-grid features-grid-2">
-                <div class="feature-card large">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10" />
-                            <polyline points="12,6 12,12 16,14" />
-                        </svg>
-                    </div>
-                    <h4>Context-Aware Switching</h4>
-                    <p>Raining? Show comfort food. Sunny? Fresh produce. Lunchtime? Meal deals. Your ads react to what's
-                        happening right now.</p>
-                </div>
-                <div class="feature-card large">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 20V10" />
-                            <path d="M12 20V4" />
-                            <path d="M6 20v-6" />
-                        </svg>
-                    </div>
-                    <h4>Live Performance</h4>
-                    <p>Real-time metrics. Watch engagement, track ROI, see which creative variant is winning. Data
-                        updates every few seconds.</p>
-                </div>
+            <div class="feature-card highlight">
+                <div class="feature-icon">🤖</div>
+                <h3>AI Generation</h3>
+                <p>Describe what you want in plain English. Our AI creates multiple design options for you to choose
+                    from.</p>
+                <span class="feature-badge">Powered by AI</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✅</div>
+                <h3>Brand Compliance</h3>
+                <p>Every design is checked against Tesco brand guidelines automatically. No more rejected ads.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Multi-Format Export</h3>
+                <p>Instagram, Facebook, Tesco App, in-store screens - one click exports all sizes.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Smart Optimization</h3>
+                <p>Your ads automatically adjust based on weather, time of day, and store traffic.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Live Analytics</h3>
+                <p>Real-time performance metrics. See what's working and what's not.</p>
             </div>
         </div>
     </section>
 
-    <section id="builder" class="canvas-section">
+    <!-- Builder Section -->
+    <section id="builder" class="builder-section">
         <div class="section-header">
-            <span class="section-badge">Studio</span>
-            <h2 class="section-title">Build something <span class="gradient-text">right now</span></h2>
-            <p class="section-subtitle">Upload your product → describe your campaign → export everywhere</p>
+            <span class="section-tag">Try It Now</span>
+            <h2>Creative Studio</h2>
+            <p>This is where the magic happens. Go ahead, play around!</p>
         </div>
 
-        <div class="canvas-workspace">
-            <div class="tools-sidebar">
-                <div class="tool-group">
-                    <h4>Add Elements</h4>
-                    <div class="tool-items">
-                        <button class="tool-btn active" data-tool="select" title="Select & Move">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
-                            </svg>
+        <div class="studio-container">
+            <!-- Left Panel -->
+            <div class="studio-panel left-panel">
+                <div class="panel-section">
+                    <h4>Tools</h4>
+                    <div class="tool-buttons">
+                        <button class="tool-btn active" onclick="setTool('select')" title="Select">
+                            <span>↖</span>
                         </button>
-                        <button class="tool-btn" data-tool="text" title="Add Text" onclick="addTextToCanvas()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 7V4h16v3" />
-                                <path d="M9 20h6" />
-                                <path d="M12 4v16" />
-                            </svg>
+                        <button class="tool-btn" onclick="addText()" title="Add Text">
+                            <span>T</span>
                         </button>
-                        <button class="tool-btn" data-tool="image" title="Upload Image" onclick="triggerImageUpload()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="3" width="18" height="18" rx="2" />
-                                <circle cx="8.5" cy="8.5" r="1.5" />
-                                <path d="M21 15l-5-5L5 21" />
-                            </svg>
+                        <button class="tool-btn" onclick="triggerUpload()" title="Upload Image">
+                            <span>🖼</span>
                         </button>
-                        <button class="tool-btn" data-tool="shape" title="Add Shape" onclick="addShapeToCanvas()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="3" width="18" height="18" rx="2" />
-                            </svg>
+                        <button class="tool-btn" onclick="addShape()" title="Add Shape">
+                            <span>⬜</span>
                         </button>
                     </div>
                 </div>
-                <div class="tool-group">
+
+                <div class="panel-section">
                     <h4>Tesco Assets</h4>
-                    <div class="asset-items">
-                        <div class="asset-item" draggable="true" data-asset="tesco-logo" onclick="addTescoLogo()">
-                            <div class="asset-preview tesco-blue">TESCO</div>
-                            <span>Logo</span>
-                        </div>
-                        <div class="asset-item" draggable="true" data-asset="clubcard" onclick="addClubcardBadge()">
-                            <div class="asset-preview clubcard-purple">Clubcard</div>
-                            <span>Clubcard</span>
-                        </div>
-                        <div class="asset-item" draggable="true" data-asset="price-tag" onclick="addPriceTag()">
-                            <div class="asset-preview tesco-red">£2.50</div>
-                            <span>Price</span>
-                        </div>
+                    <div class="asset-list">
+                        <button class="asset-btn" onclick="addAsset('logo')">
+                            <span class="asset-preview tesco-blue">TESCO</span>
+                            Logo
+                        </button>
+                        <button class="asset-btn" onclick="addAsset('clubcard')">
+                            <span class="asset-preview clubcard">CC</span>
+                            Clubcard
+                        </button>
+                        <button class="asset-btn" onclick="addAsset('price')">
+                            <span class="asset-preview price">£</span>
+                            Price Tag
+                        </button>
                     </div>
                 </div>
-                <div class="tool-group">
-                    <h4>Quick Tools</h4>
-                    <button class="action-btn" onclick="removeBackground()">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M4.93 4.93l14.14 14.14" />
-                        </svg>
-                        Remove BG
-                    </button>
-                    <button class="action-btn" onclick="autoEnhance()">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                        </svg>
-                        Enhance
-                    </button>
-                    <button class="action-btn" onclick="generateVariants()">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="7" height="7" />
-                            <rect x="14" y="3" width="7" height="7" />
-                            <rect x="14" y="14" width="7" height="7" />
-                            <rect x="3" y="14" width="7" height="7" />
-                        </svg>
-                        Variants
-                    </button>
+
+                <div class="panel-section">
+                    <h4>Actions</h4>
+                    <button class="action-btn" onclick="removeBg()">🔳 Remove Background</button>
+                    <button class="action-btn" onclick="enhance()">✨ Auto Enhance</button>
+                    <button class="action-btn" onclick="clearCanvas()">🗑 Clear All</button>
                 </div>
-                <input type="file" id="imageUpload" accept="image/*" style="display: none"
-                    onchange="handleImageUpload(event)">
+
+                <input type="file" id="fileInput" accept="image/*" style="display:none"
+                    onchange="handleFileUpload(event)">
             </div>
 
-            <div class="main-canvas">
+            <!-- Canvas Area -->
+            <div class="canvas-wrapper">
                 <div class="canvas-toolbar">
-                    <div class="canvas-size-selector">
-                        <select id="canvasSize" onchange="changeCanvasSize(this.value)">
-                            <option value="instagram">Instagram (1080×1080)</option>
-                            <option value="facebook">Facebook (1200×628)</option>
-                            <option value="tesco-app">Tesco App (750×1334)</option>
-                            <option value="instore">In-Store (1920×1080)</option>
-                        </select>
-                    </div>
-                    <div class="canvas-actions">
-                        <button class="canvas-action" onclick="undo()" title="Undo">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 10h10a5 5 0 015 5v2" />
-                                <path d="M3 10l4 4m-4-4l4-4" />
-                            </svg>
-                        </button>
-                        <button class="canvas-action" onclick="redo()" title="Redo">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 10H11a5 5 0 00-5 5v2" />
-                                <path d="M21 10l-4 4m4-4l-4-4" />
-                            </svg>
-                        </button>
-                        <button class="canvas-action" onclick="clearCanvas()" title="Clear">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 6h18" />
-                                <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6" />
-                                <path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" />
-                            </svg>
-                        </button>
-                        <div class="zoom-controls">
-                            <button onclick="zoomOut()">−</button>
-                            <span id="zoomLevel">100%</span>
-                            <button onclick="zoomIn()">+</button>
-                        </div>
+                    <select id="formatSelect" onchange="changeFormat(this.value)">
+                        <option value="square">Instagram (1080×1080)</option>
+                        <option value="landscape">Facebook (1200×628)</option>
+                        <option value="portrait">Tesco App (750×1334)</option>
+                        <option value="wide">In-Store (1920×1080)</option>
+                    </select>
+                    <div class="toolbar-actions">
+                        <button onclick="undo()" title="Undo">↩</button>
+                        <button onclick="redo()" title="Redo">↪</button>
+                        <span class="zoom-display" id="zoomDisplay">100%</span>
+                        <button onclick="zoomOut()">−</button>
+                        <button onclick="zoomIn()">+</button>
                     </div>
                 </div>
                 <div class="canvas-area" id="canvasArea">
-                    <div class="canvas-container" id="canvasContainer">
-                        <div class="design-canvas" id="designCanvas">
-                            <div class="canvas-placeholder" id="canvasPlaceholder">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48"
-                                    height="48">
-                                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                                    <circle cx="8.5" cy="8.5" r="1.5" />
-                                    <path d="M21 15l-5-5L5 21" />
-                                </svg>
-                                <p>Drop your product image here<br><span>or use the tools on the left</span></p>
-                            </div>
+                    <div class="canvas" id="canvas">
+                        <div class="canvas-empty" id="canvasEmpty">
+                            <span>🖼</span>
+                            <p>Drop an image here or use the tools</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="ai-sidebar">
-                <div class="ai-panel">
-                    <div class="panel-header">
-                        <div class="ai-indicator">
-                            <span class="ai-dot"></span>
-                            AI Ready
-                        </div>
+            <!-- Right Panel - AI -->
+            <div class="studio-panel right-panel">
+                <div class="ai-header">
+                    <span class="ai-status">🟢 AI Ready</span>
+                </div>
+
+                <div class="panel-section">
+                    <h4>Describe your ad</h4>
+                    <textarea id="aiPrompt"
+                        placeholder="Example: Summer fruit promotion, bright and fresh, show the price prominently"></textarea>
+                    <button class="btn btn-primary btn-full" onclick="generateAd()">
+                        Generate with AI
+                    </button>
+                </div>
+
+                <div class="panel-section">
+                    <h4>Quick Themes</h4>
+                    <div class="theme-chips">
+                        <button class="chip" onclick="applyTheme('summer')">☀️ Summer</button>
+                        <button class="chip" onclick="applyTheme('value')">💰 Value</button>
+                        <button class="chip" onclick="applyTheme('fresh')">🥗 Fresh</button>
+                        <button class="chip" onclick="applyTheme('clubcard')">💳 Clubcard</button>
                     </div>
-                    <div class="ai-input-section">
-                        <label>What kind of ad do you need?</label>
-                        <textarea id="aiPrompt"
-                            placeholder="Example: Summer berry promotion with Clubcard pricing, fresh and colorful feel"></textarea>
-                        <button class="btn btn-primary btn-full" onclick="generateWithAI()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
-                                height="18">
-                                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                                <path d="M2 17l10 5 10-5" />
-                            </svg>
-                            Generate
-                        </button>
-                    </div>
-                    <div class="ai-suggestions">
-                        <h4>Quick Start</h4>
-                        <div class="suggestion-chips">
-                            <button class="chip" onclick="applySuggestion('summer')">☀️ Summer</button>
-                            <button class="chip" onclick="applySuggestion('clubcard')">💳 Clubcard</button>
-                            <button class="chip" onclick="applySuggestion('fresh')">🥗 Fresh</button>
-                            <button class="chip" onclick="applySuggestion('value')">💰 Value</button>
-                        </div>
-                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h4>Background Style</h4>
                     <div class="style-options">
-                        <h4>Style</h4>
-                        <div class="style-grid">
-                            <button class="style-btn active" onclick="applyStyle('clean')">
-                                <div class="style-preview clean"></div>
-                                <span>Clean</span>
-                            </button>
-                            <button class="style-btn" onclick="applyStyle('warm')">
-                                <div class="style-preview warm"></div>
-                                <span>Warm</span>
-                            </button>
-                            <button class="style-btn" onclick="applyStyle('dark')">
-                                <div class="style-preview dark"></div>
-                                <span>Dark</span>
-                            </button>
-                            <button class="style-btn" onclick="applyStyle('playful')">
-                                <div class="style-preview playful"></div>
-                                <span>Playful</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="export-quick">
-                        <button class="btn btn-success btn-full" onclick="exportAd()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
-                                height="18">
-                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                                <polyline points="7,10 12,15 17,10" />
-                                <line x1="12" y1="15" x2="12" y2="3" />
-                            </svg>
-                            Export All Formats
+                        <button class="style-btn active" onclick="setStyle('gradient')">
+                            <div class="style-preview gradient"></div>
+                            Gradient
+                        </button>
+                        <button class="style-btn" onclick="setStyle('solid')">
+                            <div class="style-preview solid"></div>
+                            Solid
+                        </button>
+                        <button class="style-btn" onclick="setStyle('light')">
+                            <div class="style-preview light"></div>
+                            Light
+                        </button>
+                        <button class="style-btn" onclick="setStyle('dark')">
+                            <div class="style-preview dark"></div>
+                            Dark
                         </button>
                     </div>
+                </div>
+
+                <div class="export-section">
+                    <button class="btn btn-success btn-full" onclick="exportAll()">
+                        📥 Export All Formats
+                    </button>
+                    <p class="export-note">Downloads 4 sizes as ZIP</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Compliance Section -->
     <section id="compliance" class="compliance-section">
         <div class="section-header">
-            <span class="section-badge">Compliance</span>
-            <h2 class="section-title">Brand checks <span class="gradient-text">built in</span></h2>
-            <p class="section-subtitle">Every export gets validated. No more back-and-forth with brand teams.</p>
+            <span class="section-tag">Quality Assurance</span>
+            <h2>Brand Compliance Check</h2>
+            <p>Every ad passes through our automated checks before export.</p>
         </div>
 
-        <div class="compliance-demo">
-            <div class="compliance-card">
-                <div class="compliance-header">
+        <div class="compliance-container">
+            <div class="compliance-report">
+                <div class="report-header">
                     <h3>Validation Report</h3>
-                    <div class="compliance-status passed">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
-                            height="18">
-                            <path d="M9 12l2 2 4-4" />
-                            <circle cx="12" cy="12" r="10" />
-                        </svg>
-                        All Passed
-                    </div>
+                    <span class="status-badge passed">✓ All Passed</span>
                 </div>
-                <div class="compliance-checks">
+                <div class="check-list">
                     <div class="check-item passed">
-                        <div class="check-icon">✓</div>
-                        <div class="check-info">
-                            <span class="check-name">Logo Position</span>
-                            <span class="check-desc">Tesco logo in approved zone with correct spacing</span>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>Logo Placement</strong>
+                            <p>Tesco logo correctly positioned in safe zone</p>
                         </div>
                     </div>
                     <div class="check-item passed">
-                        <div class="check-icon">✓</div>
-                        <div class="check-info">
-                            <span class="check-name">Color Match</span>
-                            <span class="check-desc">All colors within brand palette tolerance</span>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>Color Accuracy</strong>
+                            <p>All colors match brand palette (±5% tolerance)</p>
                         </div>
                     </div>
                     <div class="check-item passed">
-                        <div class="check-icon">✓</div>
-                        <div class="check-info">
-                            <span class="check-name">Text Readability</span>
-                            <span class="check-desc">Font size and contrast pass accessibility</span>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>Font Compliance</strong>
+                            <p>Typography meets accessibility standards</p>
                         </div>
                     </div>
                     <div class="check-item passed">
-                        <div class="check-icon">✓</div>
-                        <div class="check-info">
-                            <span class="check-name">Safe Zones</span>
-                            <span class="check-desc">Key elements within visible area for all formats</span>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>Safe Zones</strong>
+                            <p>No content in cut-off areas for all formats</p>
                         </div>
                     </div>
                     <div class="check-item passed">
-                        <div class="check-icon">✓</div>
-                        <div class="check-info">
-                            <span class="check-name">File Size</span>
-                            <span class="check-desc">248KB – under 500KB limit</span>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>File Size</strong>
+                            <p>Under 500KB limit (current: 247KB)</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="export-panel">
-                <h3>Export Options</h3>
-                <div class="format-options">
-                    <div class="format-option active">
-                        <input type="radio" name="format" id="formatJpeg" checked>
-                        <label for="formatJpeg">
-                            <span class="format-name">JPEG</span>
-                            <span class="format-desc">Photos</span>
-                        </label>
-                    </div>
-                    <div class="format-option">
-                        <input type="radio" name="format" id="formatPng">
-                        <label for="formatPng">
-                            <span class="format-name">PNG</span>
-                            <span class="format-desc">Transparency</span>
-                        </label>
-                    </div>
+            <div class="export-options">
+                <h3>Export Settings</h3>
+                <div class="format-select">
+                    <label class="format-option">
+                        <input type="checkbox" checked>
+                        <span>Instagram (1080×1080)</span>
+                    </label>
+                    <label class="format-option">
+                        <input type="checkbox" checked>
+                        <span>Facebook (1200×628)</span>
+                    </label>
+                    <label class="format-option">
+                        <input type="checkbox" checked>
+                        <span>Tesco App (750×1334)</span>
+                    </label>
+                    <label class="format-option">
+                        <input type="checkbox" checked>
+                        <span>In-Store (1920×1080)</span>
+                    </label>
                 </div>
-                <div class="size-options">
-                    <h4>Formats to Export</h4>
-                    <div class="size-grid">
-                        <button class="size-btn active" onclick="toggleFormat(this)">
-                            <span class="size-name">Instagram</span>
-                            <span class="size-dims">1080×1080</span>
-                        </button>
-                        <button class="size-btn active" onclick="toggleFormat(this)">
-                            <span class="size-name">Facebook</span>
-                            <span class="size-dims">1200×628</span>
-                        </button>
-                        <button class="size-btn active" onclick="toggleFormat(this)">
-                            <span class="size-name">Tesco App</span>
-                            <span class="size-dims">750×1334</span>
-                        </button>
-                        <button class="size-btn active" onclick="toggleFormat(this)">
-                            <span class="size-name">In-Store</span>
-                            <span class="size-dims">1920×1080</span>
-                        </button>
-                    </div>
+                <div class="file-format">
+                    <label><input type="radio" name="filetype" checked> JPEG (smaller)</label>
+                    <label><input type="radio" name="filetype"> PNG (transparency)</label>
                 </div>
-                <button class="btn btn-primary btn-full btn-lg" onclick="downloadAll()">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                        <polyline points="7,10 12,15 17,10" />
-                        <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
+                <button class="btn btn-primary btn-full btn-lg" onclick="downloadPackage()">
                     Download Package
                 </button>
             </div>
         </div>
     </section>
 
+    <!-- Dashboard Section -->
     <section id="dashboard" class="dashboard-section">
         <div class="section-header">
-            <span class="section-badge">Dashboard</span>
-            <h2 class="section-title">Watch your ads <span class="gradient-text">work harder</span></h2>
-            <p class="section-subtitle">Real-time performance. Automatic creative rotation. Zero manual work.</p>
+            <span class="section-tag">Analytics</span>
+            <h2>Live Performance Dashboard</h2>
+            <p>See how your ads are doing right now.</p>
         </div>
 
-        <div class="dashboard-container">
-            <div class="dashboard-sidebar">
-                <div class="trigger-panel">
-                    <h4>Active Triggers</h4>
-                    <div class="trigger-list">
-                        <div class="trigger-item active">
-                            <div class="trigger-icon">🌤️</div>
-                            <div class="trigger-info">
-                                <span class="trigger-name">Weather</span>
-                                <span class="trigger-value" id="weatherValue">Sunny, 22°C</span>
-                            </div>
-                            <div class="trigger-status on"></div>
+        <div class="dashboard-grid">
+            <div class="dashboard-triggers">
+                <h4>Active Triggers</h4>
+                <div class="trigger-list">
+                    <div class="trigger active">
+                        <span class="trigger-icon">🌤</span>
+                        <div class="trigger-info">
+                            <span class="trigger-name">Weather</span>
+                            <span class="trigger-value" id="triggerWeather">Sunny, 22°C</span>
                         </div>
-                        <div class="trigger-item active">
-                            <div class="trigger-icon">👥</div>
-                            <div class="trigger-info">
-                                <span class="trigger-name">Footfall</span>
-                                <span class="trigger-value" id="footfallValue">High</span>
-                            </div>
-                            <div class="trigger-status on"></div>
+                        <span class="trigger-dot on"></span>
+                    </div>
+                    <div class="trigger active">
+                        <span class="trigger-icon">👥</span>
+                        <div class="trigger-info">
+                            <span class="trigger-name">Store Traffic</span>
+                            <span class="trigger-value" id="triggerTraffic">High</span>
                         </div>
-                        <div class="trigger-item">
-                            <div class="trigger-icon">🕐</div>
-                            <div class="trigger-info">
-                                <span class="trigger-name">Time</span>
-                                <span class="trigger-value" id="timeValue">Evening</span>
-                            </div>
-                            <div class="trigger-status on"></div>
+                        <span class="trigger-dot on"></span>
+                    </div>
+                    <div class="trigger">
+                        <span class="trigger-icon">🕐</span>
+                        <div class="trigger-info">
+                            <span class="trigger-name">Time of Day</span>
+                            <span class="trigger-value" id="triggerTime">Evening</span>
                         </div>
-                        <div class="trigger-item">
-                            <div class="trigger-icon">📈</div>
-                            <div class="trigger-info">
-                                <span class="trigger-name">Trending</span>
-                                <span class="trigger-value" id="trendValue">Berries +18%</span>
-                            </div>
-                            <div class="trigger-status on"></div>
+                        <span class="trigger-dot on"></span>
+                    </div>
+                    <div class="trigger">
+                        <span class="trigger-icon">📈</span>
+                        <div class="trigger-info">
+                            <span class="trigger-name">Trending</span>
+                            <span class="trigger-value" id="triggerTrend">Berries +18%</span>
                         </div>
+                        <span class="trigger-dot on"></span>
                     </div>
                 </div>
             </div>
 
             <div class="dashboard-main">
-                <div class="dashboard-header">
-                    <h4>Live Performance</h4>
-                    <div class="live-indicator">
-                        <span class="live-dot"></span>
-                        Live
+                <div class="dashboard-top">
+                    <h4>Performance Metrics</h4>
+                    <span class="live-badge">🔴 Live</span>
+                </div>
+                <div class="metrics-row">
+                    <div class="metric">
+                        <span class="metric-value" id="metricViews">14,892</span>
+                        <span class="metric-label">Impressions</span>
+                        <span class="metric-change up">↑ 24%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value" id="metricEngagement">4.7%</span>
+                        <span class="metric-label">Engagement</span>
+                        <span class="metric-change up">↑ 0.9%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value" id="metricROI">312%</span>
+                        <span class="metric-label">ROI</span>
+                        <span class="metric-change up">↑ 47%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value" id="metricRotations">41</span>
+                        <span class="metric-label">Rotations</span>
+                        <span class="metric-change neutral">Today</span>
                     </div>
                 </div>
 
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-value" id="impressionsValue">14,892</div>
-                        <div class="metric-label">Impressions</div>
-                        <div class="metric-trend up">↑ 24%</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-value" id="engagementValue">4.7%</div>
-                        <div class="metric-label">Engagement</div>
-                        <div class="metric-trend up">↑ 0.9%</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-value" id="roiValue">312%</div>
-                        <div class="metric-label">ROI</div>
-                        <div class="metric-trend up">↑ 47%</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-value" id="rotationsValue">41</div>
-                        <div class="metric-label">Rotations</div>
-                        <div class="metric-trend neutral">Today</div>
+                <div class="chart-section">
+                    <h5>Performance Over Time</h5>
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
                     </div>
                 </div>
 
-                <div class="chart-container">
-                    <div class="chart-header">
-                        <h5>Performance by Variant</h5>
-                        <div class="chart-legend">
-                            <span class="legend-item"><span class="legend-dot variant-a"></span>Summer</span>
-                            <span class="legend-item"><span class="legend-dot variant-b"></span>Clubcard</span>
-                            <span class="legend-item"><span class="legend-dot variant-c"></span>Value</span>
-                        </div>
-                    </div>
-                    <div class="chart-area" id="performanceChart">
-                        <svg viewBox="0 0 600 200" class="chart-svg">
-                            <line x1="50" y1="20" x2="50" y2="180" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
-                            <line x1="50" y1="180" x2="580" y2="180" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
-                            <line x1="50" y1="100" x2="580" y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="1"
-                                stroke-dasharray="5,5" />
-                            <line x1="50" y1="60" x2="580" y2="60" stroke="rgba(255,255,255,0.05)" stroke-width="1"
-                                stroke-dasharray="5,5" />
-                            <line x1="50" y1="140" x2="580" y2="140" stroke="rgba(255,255,255,0.05)" stroke-width="1"
-                                stroke-dasharray="5,5" />
-
-                            <path id="lineA" d="M50,150 Q150,120 200,100 T350,80 T500,50 T580,40" fill="none"
-                                stroke="#10B981" stroke-width="3" class="chart-line" />
-                            <circle cx="200" cy="100" r="4" fill="#10B981" />
-                            <circle cx="350" cy="80" r="4" fill="#10B981" />
-                            <circle cx="500" cy="50" r="4" fill="#10B981" />
-
-                            <path id="lineB" d="M50,160 Q150,140 200,130 T350,110 T500,90 T580,85" fill="none"
-                                stroke="#3B82F6" stroke-width="3" class="chart-line" />
-                            <circle cx="200" cy="130" r="4" fill="#3B82F6" />
-                            <circle cx="350" cy="110" r="4" fill="#3B82F6" />
-                            <circle cx="500" cy="90" r="4" fill="#3B82F6" />
-
-                            <path id="lineC" d="M50,165 Q150,155 200,145 T350,140 T500,130 T580,125" fill="none"
-                                stroke="#8B5CF6" stroke-width="3" class="chart-line" />
-                            <circle cx="200" cy="145" r="4" fill="#8B5CF6" />
-                            <circle cx="350" cy="140" r="4" fill="#8B5CF6" />
-                            <circle cx="500" cy="130" r="4" fill="#8B5CF6" />
-
-                            <text x="50" y="195" fill="#9CA3AF" font-size="10">9am</text>
-                            <text x="180" y="195" fill="#9CA3AF" font-size="10">12pm</text>
-                            <text x="315" y="195" fill="#9CA3AF" font-size="10">3pm</text>
-                            <text x="450" y="195" fill="#9CA3AF" font-size="10">6pm</text>
-                            <text x="565" y="195" fill="#9CA3AF" font-size="10">Now</text>
-                        </svg>
-                    </div>
-                </div>
-
-                <div class="creative-rotation">
-                    <h5>Active Creative</h5>
-                    <div class="rotation-cards">
-                        <div class="rotation-card active">
-                            <div class="rotation-preview summer"></div>
-                            <div class="rotation-info">
-                                <span class="rotation-name">Summer Fresh</span>
-                                <span class="rotation-trigger">Weather: Sunny</span>
+                <div class="variants-section">
+                    <h5>Active Creatives</h5>
+                    <div class="variant-cards">
+                        <div class="variant-card active">
+                            <div class="variant-preview summer"></div>
+                            <div class="variant-info">
+                                <span class="variant-name">Summer Fresh</span>
+                                <span class="variant-trigger">Weather: Sunny</span>
                             </div>
-                            <div class="rotation-badge">Active</div>
+                            <span class="variant-badge">Active</span>
                         </div>
-                        <div class="rotation-card">
-                            <div class="rotation-preview clubcard"></div>
-                            <div class="rotation-info">
-                                <span class="rotation-name">Clubcard Deals</span>
-                                <span class="rotation-trigger">Weekend traffic</span>
+                        <div class="variant-card">
+                            <div class="variant-preview clubcard"></div>
+                            <div class="variant-info">
+                                <span class="variant-name">Clubcard Deal</span>
+                                <span class="variant-trigger">Weekend</span>
                             </div>
                         </div>
-                        <div class="rotation-card">
-                            <div class="rotation-preview value"></div>
-                            <div class="rotation-info">
-                                <span class="rotation-name">Value Pack</span>
-                                <span class="rotation-trigger">Evening hours</span>
+                        <div class="variant-card">
+                            <div class="variant-preview value"></div>
+                            <div class="variant-info">
+                                <span class="variant-name">Value Pack</span>
+                                <span class="variant-trigger">Evening</span>
                             </div>
                         </div>
                     </div>
@@ -740,104 +474,143 @@
         </div>
     </section>
 
+    <!-- About Section -->
     <section id="about" class="about-section">
         <div class="section-header">
-            <span class="section-badge">About</span>
-            <h2 class="section-title">Why we <span class="gradient-text">built this</span></h2>
+            <span class="section-tag">Our Story</span>
+            <h2>Why We Built This</h2>
         </div>
-        <div class="about-content">
+
+        <div class="about-grid">
             <div class="about-card">
                 <h3>The Problem</h3>
-                <p>Small retailers can't afford design teams. Brand managers waste hours resizing ads. And nobody has
-                    time to manually optimize creatives based on what's actually happening in stores.</p>
+                <p>Small suppliers spend hours creating ads that get rejected for not following brand guidelines. They
+                    can't afford design agencies, and DIY tools are too complicated.</p>
             </div>
             <div class="about-card">
                 <h3>Our Solution</h3>
-                <p>SmartCreative Studio handles both creation and optimization. Upload your product, describe what you
-                    want, and AI generates options. Once live, your ads adapt automatically to weather, footfall, and
-                    trends.</p>
+                <p>SmartCreative Studio automates the boring stuff - compliance checks, resizing, optimization - so
+                    suppliers can focus on what matters: their products.</p>
             </div>
             <div class="about-card">
-                <h3>The Tech</h3>
-                <p>We combine generative AI for content creation with real-time context triggers for optimization.
-                    Built-in brand compliance ensures every export meets Tesco guidelines before it leaves the studio.
-                </p>
+                <h3>How It Works</h3>
+                <p>Upload your product photo, describe what you want, and our AI creates brand-compliant ads. The
+                    dynamic system then optimizes them in real-time.</p>
             </div>
         </div>
+
         <div class="team-section">
-            <h4>Built by</h4>
+            <h4>Built By</h4>
             <div class="team-members">
                 <div class="team-member">
-                    <div class="member-avatar">AR</div>
+                    <div class="avatar">AR</div>
                     <span>Ayush Ranjan</span>
                 </div>
                 <div class="team-member">
-                    <div class="member-avatar">SV</div>
+                    <div class="avatar">SV</div>
                     <span>Sachin Verma</span>
                 </div>
             </div>
+            <p class="team-note">Created for Tesco Retail Media InnovAItion Jam 2025</p>
         </div>
     </section>
 
+    <!-- CTA Section -->
     <section class="cta-section">
-        <div class="cta-content">
-            <h2>Ready to try it?</h2>
-            <p>Open the studio and build your first ad in under a minute.</p>
-            <button class="btn btn-primary btn-lg" onclick="scrollToBuilder()">
-                Open Studio
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-            </button>
-        </div>
+        <h2>Ready to try it?</h2>
+        <p>Create your first ad in under 2 minutes. No credit card needed.</p>
+        <button class="btn btn-primary btn-lg" onclick="handleGetStarted()">
+            Start Creating Free
+        </button>
     </section>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-brand">
                 <div class="logo">
-                    <div class="logo-icon">
-                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="40" height="40" rx="10" fill="url(#footer-logo-gradient)" />
-                            <path d="M12 20L18 26L28 14" stroke="white" stroke-width="3" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <defs>
-                                <linearGradient id="footer-logo-gradient" x1="0" y1="0" x2="40" y2="40">
-                                    <stop stop-color="#EE1C2E" />
-                                    <stop offset="1" stop-color="#00539F" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                    <span class="logo-text">Smart<span class="highlight">Creative</span></span>
+                    <div class="logo-icon">✓</div>
+                    <span class="logo-text">SmartCreative</span>
                 </div>
-                <p>Tesco Retail Media InnovAItion Jam 2025</p>
+                <p>A student project for Tesco InnovAItion Jam 2025</p>
             </div>
             <div class="footer-links">
-                <div class="footer-col">
-                    <h4>Product</h4>
-                    <a href="#builder">Studio</a>
-                    <a href="#dashboard">Dashboard</a>
-                    <a href="#compliance">Compliance</a>
-                </div>
-                <div class="footer-col">
-                    <h4>About</h4>
-                    <a href="#about">Our Story</a>
-                    <a href="#features">Features</a>
-                </div>
+                <a href="#features">Features</a>
+                <a href="#builder">Studio</a>
+                <a href="#dashboard">Dashboard</a>
+                <a href="#about">About</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 SmartCreative Studio. Made by Ayush Ranjan & Sachin Verma</p>
+            <p>© 2025 SmartCreative Studio. Built by Ayush Ranjan & Sachin Verma</p>
         </div>
     </footer>
 
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModals()">×</button>
+            <h2>Welcome Back</h2>
+            <p>Log in to access your designs</p>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Log In</button>
+            </form>
+            <p class="modal-footer">
+                Don't have an account? <a href="#" onclick="switchToSignup()">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModals()">×</button>
+            <h2>Create Account</h2>
+            <p>Start creating beautiful ads for free</p>
+            <form id="signupForm" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="signupName" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="signupEmail" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="signupPassword" placeholder="At least 6 characters" required
+                        minlength="6">
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" required>
+                        I agree to the Terms of Service
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+            </form>
+            <p class="modal-footer">
+                Already have an account? <a href="#" onclick="switchToLogin()">Log in</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
+    <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner">
+        <div class="loading-content">
             <div class="spinner"></div>
-            <span id="loadingText">Generating your creative...</span>
+            <p id="loadingText">Loading...</p>
         </div>
     </div>
 
