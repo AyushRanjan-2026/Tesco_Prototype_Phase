@@ -603,6 +603,51 @@
         </div>
     </div>
 
+    <!-- AI Assistant Panel -->
+    <div class="ai-assistant" id="aiAssistant">
+        <button class="ai-toggle" onclick="toggleAssistant()">
+            <span class="ai-toggle-icon">🤖</span>
+            <span class="ai-toggle-text">AI Help</span>
+        </button>
+        <div class="ai-chat" id="aiChat">
+            <div class="ai-chat-header">
+                <div class="ai-chat-title">
+                    <span>🤖</span>
+                    <div>
+                        <strong>SmartCreative AI</strong>
+                        <span class="ai-chat-status">Tesco Retail Media Assistant</span>
+                    </div>
+                </div>
+                <button class="ai-chat-close" onclick="toggleAssistant()">×</button>
+            </div>
+            <div class="ai-chat-messages" id="aiMessages">
+                <div class="ai-message bot">
+                    <div class="ai-message-content">
+                        <p>👋 Hi! I'm your SmartCreative AI assistant, designed for Tesco Retail Media.</p>
+                        <p>I can help you with:</p>
+                        <ul>
+                            <li>Creating brand-compliant ad layouts</li>
+                            <li>Optimizing for different contexts</li>
+                            <li>Understanding Tesco guidelines</li>
+                            <li>Performance recommendations</li>
+                        </ul>
+                        <p>What can I help you with?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ai-quick-actions">
+                <button onclick="askAI('What are Tesco brand guidelines?')">📋 Brand Guidelines</button>
+                <button onclick="askAI('How do I create a Clubcard promotion?')">💳 Clubcard Tips</button>
+                <button onclick="askAI('Optimize my ad for summer')">☀️ Summer Ideas</button>
+            </div>
+            <div class="ai-chat-input">
+                <input type="text" id="aiChatInput" placeholder="Ask me anything about retail media..."
+                    onkeypress="handleAIKeypress(event)">
+                <button onclick="sendAIMessage()">→</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 

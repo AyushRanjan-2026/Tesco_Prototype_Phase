@@ -950,3 +950,272 @@ window.addEventListener('beforeunload', () => {
         clearInterval(dashboardUpdateInterval);
     }
 });
+
+// ===== AI Assistant =====
+const AI_RESPONSES = {
+    // Brand Guidelines
+    'brand': `**Tesco Brand Guidelines:**
+
+• **Logo placement**: Top-left corner with 20px minimum clear space
+• **Primary colors**: Tesco Red (#EE1C2E), Tesco Blue (#00539F)
+• **Clubcard Purple**: #7B2D8E for member pricing
+• **Typography**: Bold headlines (max 6 words), clear price display
+• **Safe zones**: 10% margin from all edges
+
+Your creative will be automatically validated against these rules before export.`,
+
+    'guidelines': `**Quick Compliance Checklist:**
+
+✅ Logo in top-left corner
+✅ Price clearly visible (bottom-right recommended)
+✅ Clubcard badge if showing member prices
+✅ High contrast text for readability
+✅ No content in cut-off zones
+✅ File size under 500KB
+
+I validate all of these automatically before you export!`,
+
+    // Clubcard
+    'clubcard': `**Creating Clubcard Promotions:**
+
+Clubcard creatives should:
+• Use Clubcard Purple (#7B2D8E) for badges
+• Show both regular and Clubcard price when possible
+• Include "Clubcard Price" or "Clubcard Exclusive" text
+• Target logged-in Clubcard members
+
+**Tip:** Clubcard promotions see 23% higher engagement on average.
+
+Want me to generate a Clubcard-themed creative? Just click the 💳 Clubcard theme!`,
+
+    // Summer/Seasonal
+    'summer': `**Summer Creative Ideas:**
+
+For summer promotions, I recommend:
+• **Fresh greens** and bright colors
+• **Outdoor/BBQ** food imagery
+• **Light, airy** layouts
+• **Seasonal urgency** ("Summer Special", "Limited Time")
+
+**Hot categories right now:** Fresh berries (+18%), soft drinks (+15%), ice cream (+22%)
+
+The system automatically activates summer creatives when weather exceeds 20°C.`,
+
+    'fresh': `**Fresh Produce Tips:**
+
+For fresh food ads:
+• Use vibrant, natural colors
+• Show product quality (droplets, freshness)
+• Keep layouts clean and uncluttered
+• Emphasize value and quality together
+
+**Best performing layouts:** Product-right with text-left, green gradient backgrounds.`,
+
+    // Value/Deals
+    'value': `**Value Promotions:**
+
+For value-focused ads:
+• **Bold pricing** is essential - make it the hero
+• Use Tesco Red (#EE1C2E) for price tags
+• Consider "3 for 2", "BOGOF", or "Multipack" messaging
+• Show savings clearly ("Was £X, Now £Y")
+
+**Tip:** Value creatives perform best during evening hours (5-8pm).`,
+
+    // Performance
+    'performance': `**Performance Optimization:**
+
+Your creatives are optimized automatically based on:
+• **Weather**: Sunny = fresh produce, Rainy = comfort food
+• **Time**: Morning = breakfast, Evening = dinner solutions
+• **Footfall**: High traffic = bold/simple, Low = detailed
+• **Trending**: Category performance data
+
+Current performance: +24% impressions, 4.7% engagement, 312% ROI
+
+The dashboard shows real-time rotations across all contexts.`,
+
+    'optimize': `**Optimization Recommendations:**
+
+Based on current signals:
+• Weather is sunny - fresh produce creatives activated
+• It's evening - dinner solution messaging recommended
+• Store traffic is high - using bold, attention-grabbing layouts
+
+**Suggested actions:**
+1. Add seasonal urgency ("This Week Only")
+2. Include Clubcard pricing for member engagement
+3. Consider evening meal bundle messaging`,
+
+    // Formats
+    'format': `**Multi-Format Export:**
+
+I generate all 4 formats from your single design:
+• **Instagram**: 1080×1080 (square)
+• **Facebook**: 1200×628 (landscape)
+• **Tesco App**: 750×1334 (portrait)
+• **In-Store**: 1920×1080 (widescreen)
+
+Each format maintains safe zones and compliance. One click exports all!`,
+
+    // General help
+    'help': `**I can help you with:**
+
+📋 **Brand Guidelines** - Colors, logos, typography rules
+💳 **Clubcard Promotions** - Member-exclusive creative tips
+☀️ **Seasonal Themes** - Summer, winter, holiday ideas
+💰 **Value Messaging** - Price-focused layouts
+📊 **Performance** - Optimization and analytics
+📱 **Formats** - Multi-format export guidance
+
+Just ask me anything, or use the quick action buttons above!`,
+
+    // Default
+    'default': `I understand you're asking about retail media creatives. As your Tesco Retail Media AI assistant, I'm here to help with:
+
+• Creating brand-compliant ad layouts
+• Optimizing for different contexts
+• Understanding Tesco guidelines
+• Performance recommendations
+
+Could you be more specific about what you'd like to achieve? For example:
+- "How do I create a Clubcard promotion?"
+- "What are the brand color guidelines?"
+- "Optimize my ad for summer"`
+};
+
+let isAssistantOpen = false;
+
+function toggleAssistant() {
+    const chat = document.getElementById('aiChat');
+    isAssistantOpen = !isAssistantOpen;
+
+    if (isAssistantOpen) {
+        chat.classList.add('active');
+    } else {
+        chat.classList.remove('active');
+    }
+}
+
+function handleAIKeypress(e) {
+    if (e.key === 'Enter') {
+        sendAIMessage();
+    }
+}
+
+function sendAIMessage() {
+    const input = document.getElementById('aiChatInput');
+    const message = input.value.trim();
+
+    if (!message) return;
+
+    // Add user message
+    addChatMessage(message, 'user');
+    input.value = '';
+
+    // Show typing indicator
+    showTypingIndicator();
+
+    // Generate response after delay
+    setTimeout(() => {
+        hideTypingIndicator();
+        const response = generateAIResponse(message);
+        addChatMessage(response, 'bot');
+    }, 1000 + Math.random() * 500);
+}
+
+function askAI(question) {
+    const input = document.getElementById('aiChatInput');
+    input.value = question;
+    sendAIMessage();
+}
+
+function addChatMessage(content, type) {
+    const container = document.getElementById('aiMessages');
+
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `ai-message ${type}`;
+
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'ai-message-content';
+
+    if (type === 'bot') {
+        // Parse markdown-like formatting
+        contentDiv.innerHTML = content
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n• /g, '</p><p>• ')
+            .replace(/\n✅ /g, '</p><p>✅ ')
+            .replace(/\n(\d)\. /g, '</p><p>$1. ');
+        contentDiv.innerHTML = `<p>${contentDiv.innerHTML}</p>`;
+    } else {
+        contentDiv.innerHTML = `<p>${content}</p>`;
+    }
+
+    messageDiv.appendChild(contentDiv);
+    container.appendChild(messageDiv);
+
+    // Scroll to bottom
+    container.scrollTop = container.scrollHeight;
+}
+
+function showTypingIndicator() {
+    const container = document.getElementById('aiMessages');
+
+    const typing = document.createElement('div');
+    typing.className = 'ai-message bot';
+    typing.id = 'typingIndicator';
+    typing.innerHTML = `
+        <div class="ai-message-content">
+            <div class="ai-typing">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    `;
+
+    container.appendChild(typing);
+    container.scrollTop = container.scrollHeight;
+}
+
+function hideTypingIndicator() {
+    const typing = document.getElementById('typingIndicator');
+    if (typing) typing.remove();
+}
+
+function generateAIResponse(message) {
+    const lowerMsg = message.toLowerCase();
+
+    // Match keywords to responses
+    if (lowerMsg.includes('brand') || lowerMsg.includes('color') || lowerMsg.includes('logo')) {
+        return AI_RESPONSES['brand'];
+    }
+    if (lowerMsg.includes('guideline') || lowerMsg.includes('compliance') || lowerMsg.includes('rule')) {
+        return AI_RESPONSES['guidelines'];
+    }
+    if (lowerMsg.includes('clubcard') || lowerMsg.includes('member')) {
+        return AI_RESPONSES['clubcard'];
+    }
+    if (lowerMsg.includes('summer') || lowerMsg.includes('seasonal') || lowerMsg.includes('weather')) {
+        return AI_RESPONSES['summer'];
+    }
+    if (lowerMsg.includes('fresh') || lowerMsg.includes('produce') || lowerMsg.includes('fruit')) {
+        return AI_RESPONSES['fresh'];
+    }
+    if (lowerMsg.includes('value') || lowerMsg.includes('deal') || lowerMsg.includes('price') || lowerMsg.includes('discount')) {
+        return AI_RESPONSES['value'];
+    }
+    if (lowerMsg.includes('performance') || lowerMsg.includes('metric') || lowerMsg.includes('analytics')) {
+        return AI_RESPONSES['performance'];
+    }
+    if (lowerMsg.includes('optimize') || lowerMsg.includes('improve') || lowerMsg.includes('recommend')) {
+        return AI_RESPONSES['optimize'];
+    }
+    if (lowerMsg.includes('format') || lowerMsg.includes('export') || lowerMsg.includes('size')) {
+        return AI_RESPONSES['format'];
+    }
+    if (lowerMsg.includes('help') || lowerMsg.includes('what can') || lowerMsg.includes('how do')) {
+        return AI_RESPONSES['help'];
+    }
+
+    return AI_RESPONSES['default'];
+}
