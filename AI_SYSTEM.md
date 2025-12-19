@@ -1,8 +1,8 @@
-# SmartCreative AI System
+# Retail Canvas AI System
 
 ## Overview
 
-SmartCreative Studio includes an AI system designed specifically for Tesco Retail Media. This document outlines the AI's behavior, constraints, and capabilities.
+Retail Canvas includes an AI system designed specifically for Tesco Retail Media. This document outlines the AI's behavior, constraints, and capabilities.
 
 ---
 
@@ -189,4 +189,4 @@ Suggestion: Consider adding "Limited time" urgency for higher engagement
 
 ---
 
-*This AI system is part of SmartCreative Studio, built for the Tesco Retail Media InnovAItion Jam 2025.*
+*This AI system is part of Retail Canvas, built for the Tesco Retail Media InnovAItion Jam 2025.*

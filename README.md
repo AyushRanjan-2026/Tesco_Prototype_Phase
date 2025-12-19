@@ -1,4 +1,4 @@
-# SmartCreative Studio
+# Retail Canvas
 
 An AI-powered creative production and optimization tool for retail media, built for the Tesco Retail Media InnovAItion Jam 2025.
 

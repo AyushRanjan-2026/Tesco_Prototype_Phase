@@ -1,4 +1,4 @@
-// SmartCreative Studio - Application Logic
+// Retail Canvas - Application Logic
 
 // ===== State =====
 let isLoggedIn = false;
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ===== Auth Functions =====
 function checkLoginState() {
-    const savedUser = localStorage.getItem('smartcreative_user');
+    const savedUser = localStorage.getItem('retailcanvas_user');
     if (savedUser) {
         currentUser = JSON.parse(savedUser);
         isLoggedIn = true;
@@ -65,7 +65,7 @@ function handleLogin(e) {
         hideLoading();
 
         // Check if user exists in localStorage or accept any credentials for demo
-        const users = JSON.parse(localStorage.getItem('smartcreative_users') || '[]');
+        const users = JSON.parse(localStorage.getItem('retailcanvas_users') || '[]');
         const user = users.find(u => u.email === email);
 
         if (user && user.password === password) {
@@ -91,7 +91,7 @@ function handleSignup(e) {
         hideLoading();
 
         // Save user
-        const users = JSON.parse(localStorage.getItem('smartcreative_users') || '[]');
+        const users = JSON.parse(localStorage.getItem('retailcanvas_users') || '[]');
 
         if (users.find(u => u.email === email)) {
             showToast('error', 'Email Exists', 'This email is already registered');
@@ -100,7 +100,7 @@ function handleSignup(e) {
 
         const newUser = { name, email, password };
         users.push(newUser);
-        localStorage.setItem('smartcreative_users', JSON.stringify(users));
+        localStorage.setItem('retailcanvas_users', JSON.stringify(users));
 
         loginUser(newUser);
         showToast('success', 'Welcome!', 'Your account has been created');
@@ -110,7 +110,7 @@ function handleSignup(e) {
 function loginUser(user) {
     currentUser = user;
     isLoggedIn = true;
-    localStorage.setItem('smartcreative_user', JSON.stringify(user));
+    localStorage.setItem('retailcanvas_user', JSON.stringify(user));
     closeModals();
     updateAuthUI();
     showToast('success', 'Welcome back!', `Logged in as ${user.name || user.email}`);
@@ -119,7 +119,7 @@ function loginUser(user) {
 function logout() {
     currentUser = null;
     isLoggedIn = false;
-    localStorage.removeItem('smartcreative_user');
+    localStorage.removeItem('retailcanvas_user');
     updateAuthUI();
     showToast('info', 'Logged out', 'See you next time!');
 }
@@ -674,7 +674,7 @@ function downloadPackage() {
 
 function downloadDemoFile() {
     // Create a simple text file as demo
-    const content = `SmartCreative Studio Export
+    const content = `Retail Canvas Export
 ============================
 Export Date: ${new Date().toLocaleString()}
 User: ${currentUser?.name || 'Guest'}
@@ -688,7 +688,7 @@ Formats Included:
 Note: This is a demo export. In production, 
 this would be a ZIP file with all image formats.
 
-Thank you for using SmartCreative Studio!
+Thank you for using Retail Canvas!
 Built by Ayush Ranjan & Sachin Verma
 Tesco InnovAItion Jam 2025`;
 
@@ -696,7 +696,7 @@ Tesco InnovAItion Jam 2025`;
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'SmartCreative_Export.txt';
+    a.download = 'Retail Canvas_Export.txt';
     a.click();
     URL.revokeObjectURL(url);
 }
